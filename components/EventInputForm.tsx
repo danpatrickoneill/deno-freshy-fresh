@@ -34,10 +34,10 @@ export function EventInputForm(props: object) {
           />
         </label>
         <label>
-          User initials:
+          Email address:
           <input
-            type="text"
-            name="User initials"
+            type="email"
+            name="Email"
           />
         </label>
       </form>
