@@ -48,7 +48,6 @@ export function EventInputForm(props: object) {
           name="Desired date"
         />
       </label>
-      {/* <TimeTable date={loadedDate} timesheet={todaysTimesheet} /> */}
     </div>
   );
 }

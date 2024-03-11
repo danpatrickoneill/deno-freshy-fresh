@@ -2,11 +2,11 @@ import type { Signal } from "@preact/signals";
 import { Button } from "../components/Button.tsx";
 
 interface DatePickerProps {
-  dateString: Signal<string>;
+  dateString: Signal<Date>;
 }
 
 export function DatePicker(props: DatePickerProps) {
-  const dateString = props.dateString.value || new Date().toDateString();
+  const dateString = props.dateString.value || new Date();
   const date = new Date(dateString);
 
   const incrementDate = (numberOfDays: number) => {
@@ -14,7 +14,7 @@ export function DatePicker(props: DatePickerProps) {
     console.log(date);
     date.setDate(date.getDate() + numberOfDays);
     console.log(date);
-    props.dateString.value = date.toDateString();
+    props.dateString.value = date;
   };
   const monthNumber = date.getMonth() + 1
   const month = monthNumber.toString().length === 1

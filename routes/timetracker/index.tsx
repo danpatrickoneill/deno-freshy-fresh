@@ -1,9 +1,10 @@
 import { useSignal } from "@preact/signals";
 import { EventInputForm } from "../../components/EventInputForm.tsx";
 import { DatePicker } from "../../islands/DatePicker.tsx";
+// import { Timesheet } from "../../components/Timesheet.tsx";
 
 export default function Home() {
-  const dateString = useSignal("4/16/2024");
+  const dateString = useSignal(new Date("4/16/2024"));
   return (
     <div class="px-4 py-8 mx-auto bg-[#86efac]">
       <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
@@ -20,6 +21,7 @@ export default function Home() {
           <code class="mx-2">./routes/index.tsx</code> file, and refresh.
         </p>
         <EventInputForm />
+        {/* <Timesheet dateString={dateString}/> */}
         <DatePicker dateString={dateString}/>
       </div>
     </div>
