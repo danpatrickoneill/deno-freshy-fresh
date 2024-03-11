@@ -63,12 +63,12 @@ export async function findTimesheetById(id: string) {
     // Specifying a Schema is always optional, but it enables type hinting on
     // finds and inserts
     const timesheets = database.collection("timesheets");
-    console.log(id);
+    // console.log(id);
     const timesheetId = new ObjectId(id.toString());
     const timesheet = await timesheets.findOne(
       { _id: timesheetId },
     );
-    console.log(timesheet);
+    // console.log(timesheet);
     return timesheet;
   } finally {
     await client.close();
