@@ -3,6 +3,13 @@ import { EventInputForm } from "../../components/EventInputForm.tsx";
 import { DatePicker } from "../../islands/DatePicker.tsx";
 import { Timesheet } from "../../components/Timesheet.tsx";
 
+interface TimesheetEvent {
+  startTime: string;
+  endTime: string;
+  eventName: string;
+  activity: string;
+}
+
 export default function Home() {
   const dateString = useSignal(new Date("4/16/2024"));
   const eventOne = {
@@ -28,7 +35,11 @@ export default function Home() {
         </p>
         <EventInputForm />
         <DatePicker dateString={dateString} />
-        <Timesheet columns={["x"]} events={[eventOne]} timestamp={dateString} />
+        <Timesheet
+          columns={["x"]}
+          events={[eventOne]}
+          timestamp={dateString.value}
+        />
       </div>
     </div>
   );

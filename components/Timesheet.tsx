@@ -1,8 +1,5 @@
-import type { Signal } from "@preact/signals";
-import { JSX } from "preact";
 import { HandlerContext, Handlers, PageProps } from "$fresh/server.ts";
-
-
+import { establishConnection } from "../utils/dbUtils.ts";
 
 const columns = ["Start Time", "End Time", "Case Name", "Activity"];
 
@@ -17,7 +14,7 @@ interface TimesheetEvent {
 interface TimesheetProps {
   columns: string[];
   events: TimesheetEvent[];
-  timestamp: Signal<Date>;
+  timestamp: Date;
 }
 
 // async function fetchVotedItems() {
@@ -39,14 +36,23 @@ export function Timesheet(props: TimesheetProps) {
     results: string[];
     query: string;
   }
-  
+
   //  User has a timesheet dict with timestamp format keys and timesheet IDs; then handle lookup
   //  Can cache ID permanently and events refreshed on demand
-  export const handler: Handlers = {
+  const handler: Handlers = {
     async GET(req: Request, ctx: HandlerContext) {
       // Gotta refactor mongo connection into util that I can assign to db here
-      const user = await db.users.findOne({ email: enteredEmail });
-      const timesheet = await db.timesheets.findOne({ _id: user.timesheets[timestamp] });
+      const users = await establishConnection("users");
+      const user = await users.collection("users").findOne({
+        email: "test@test.com",
+      });
+      console.log(51, user);
+      // const timesheetId = user?.timesheets?.[timestamp.value.toDateString()]
+      const timesheetId = user?.timesheets["03-15-2024"]
+      const timesheets = await establishConnection("timesheets");
+      const timesheet = await timesheets.collection("timesheets").findOne({
+        _id: timesheetId,
+      });
       if (!timesheet) {
         return ctx.renderNotFound({
           message: "Timesheet does not exist",
