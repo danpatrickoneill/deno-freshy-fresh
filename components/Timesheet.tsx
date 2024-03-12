@@ -6,8 +6,7 @@ import {
   findUserByEmail,
 } from "../utils/dbUtils.ts";
 import {
-  getStandardizedMonthDayYearKeyFromDate,
-  selectedDate,
+  getStandardizedMonthDayYearKeyFromSelectedDate,
 } from "../utils/timeUtils.ts";
 
 const columns = ["Start Time", "End Time", "Case Name", "Activity"];
@@ -23,7 +22,6 @@ interface TimesheetEvent {
 interface TimesheetProps {
   columns: string[];
   events: TimesheetEvent[];
-  dateString: Date;
 }
 
 // async function fetchVotedItems() {
@@ -41,9 +39,7 @@ function formatColumnName(string: string) {
 //  Can cache ID permanently and events refreshed on demand
 export const handler: Handlers = {
   async GET(req: Request, ctx: HandlerContext) {
-    const timesheetKey = getStandardizedMonthDayYearKeyFromDate(
-      selectedDate.value,
-    );
+    const timesheetKey = getStandardizedMonthDayYearKeyFromSelectedDate();
     // Gotta refactor mongo connection into util that I can assign to db here
     const user = await findUserByEmail("test@test.com");
     // const timesheetId = user?.timesheets?.[dateString.value.toDateString()]
@@ -97,7 +93,7 @@ export const handler: Handlers = {
 
 // Need to define type for this which will be good
 export function Timesheet(props: TimesheetProps) {
-  const { events, dateString } = props;
+  const { events } = props;
 
   interface Data {
     results: string[];

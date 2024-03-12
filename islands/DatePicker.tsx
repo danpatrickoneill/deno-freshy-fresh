@@ -1,24 +1,23 @@
-import type { Signal } from "@preact/signals";
-import { getStandardizedMonthDayYearKeyFromDate } from "../utils/timeUtils.ts";
+import {
+  getStandardizedMonthDayYearKeyFromSelectedDate,
+  setSelectedDate,
+} from "../utils/timeUtils.ts";
 
-interface DatePickerProps {
-  selectedDate: Signal<Date>;
-}
-
-export function DatePicker(props: DatePickerProps) {
+export function DatePicker() {
   const incrementDate = (numberOfDays: number) => {
-    const date = new Date(props.selectedDate.value);
+    const dateValue = getStandardizedMonthDayYearKeyFromSelectedDate();
+    const date = new Date(dateValue);
     date.setDate(date.getDate() + numberOfDays);
-    props.selectedDate.value = date;
-  console.log(props.selectedDate);
-};
+    console.log(date);
+    setSelectedDate(date);
+    // console.log(selectedDate);
+  };
 
-  const date = new Date(props.selectedDate?.value);
-  const dateValue = getStandardizedMonthDayYearKeyFromDate(date);
+  const dateValue = getStandardizedMonthDayYearKeyFromSelectedDate();
 
   return (
     <div class="col-span-4 flex gap-8 py-6">
-      <button class="flex gap-8 py-6" onClick={() => incrementDate(-1)}>
+      <button class="flex gap-8 py-6" onClick={() => incrementDate(0)}>
         Go to previous day
       </button>
       <input
@@ -26,7 +25,7 @@ export function DatePicker(props: DatePickerProps) {
         name="Desired date"
         value={dateValue}
       />
-      <button onClick={() => incrementDate(1)}>Go to next day</button>
+      <button onClick={() => incrementDate(2)}>Go to next day</button>
     </div>
   );
 }
