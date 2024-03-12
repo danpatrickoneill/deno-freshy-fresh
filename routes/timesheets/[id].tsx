@@ -4,6 +4,11 @@ import { findTimesheetById, findUserByEmail } from "../../utils/dbUtils.ts";
 import { EventInputForm } from "../../components/EventInputForm.tsx";
 import { DatePicker } from "../../islands/DatePicker.tsx";
 
+import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
+
+const env = await load();
+const client_id = env["GAUTH_CLIENT_ID"];
+
 interface TimesheetEvent {
   startTime: string;
   endTime: string;
@@ -31,16 +36,28 @@ export default async function TimesheetPage(_req: any, ctx: any) {
     activity: "1",
   };
   const dateString = new Date("03-11-2024");
-
   return (
-    <div class="px-4 py-8 mx-auto bg-[#86efac]">
-      <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
-        <Timesheet
-          columns={["x"]}
-          events={timesheet.events}
-          dateString={dateString}
-        />
+    <>
+      <head>
+        <script src="https://apis.google.com/js/platform.js" async defer>
+        </script>
+        <meta
+          name="google-signin-client_id"
+          content={client_id}
+        >
+        </meta>
+      </head>
+      <div class="px-4 py-8 mx-auto bg-[#86efac]">
+        <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+          <Timesheet
+            columns={["x"]}
+            events={timesheet.events}
+            dateString={dateString}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
