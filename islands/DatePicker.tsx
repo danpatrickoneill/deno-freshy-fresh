@@ -25,7 +25,7 @@ export function DatePicker(props: DatePickerProps) {
       <input
         type="date"
         name="Desired date"
-        value={"03-12-2024"}
+        value={dateValue}
       />
       <button onClick={() => incrementDate(1)}>Go to next day</button>
     </div>
