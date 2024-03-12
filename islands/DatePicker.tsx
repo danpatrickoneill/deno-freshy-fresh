@@ -6,22 +6,21 @@ interface DatePickerProps {
 }
 
 export function DatePicker(props: DatePickerProps) {
-  const selectedDate = props.selectedDate.value || new Date();
-  const date = new Date(selectedDate);
-  console.log(props.selectedDate, selectedDate)
   const incrementDate = (numberOfDays: number) => {
-    const date = new Date(selectedDate);
-    console.log(date);
+    const date = new Date(props.selectedDate.value);
     date.setDate(date.getDate() + numberOfDays);
-    console.log(date);
     props.selectedDate.value = date;
-  };
+  console.log(props.selectedDate);
+};
 
-  const dateValue = getStandardizedMonthDayYearKeyFromDate(date)
-  console.log(dateValue);
+  const date = new Date(props.selectedDate?.value);
+  const dateValue = getStandardizedMonthDayYearKeyFromDate(date);
+
   return (
     <div class="col-span-4 flex gap-8 py-6">
-      <button class="flex gap-8 py-6" onClick={() => incrementDate(-1)}>Go to previous day</button>
+      <button class="flex gap-8 py-6" onClick={() => incrementDate(-1)}>
+        Go to previous day
+      </button>
       <input
         type="date"
         name="Desired date"

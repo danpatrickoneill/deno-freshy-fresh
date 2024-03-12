@@ -1,6 +1,13 @@
 import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
 import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
 
+interface TimesheetEvent {
+  startTime: string;
+  endTime: string;
+  eventName: string;
+  activity: string;
+}
+
 const env = await load();
 const username = env["MONGO_USERNAME"];
 const password = env["PASSWORD"];
@@ -55,7 +62,29 @@ export async function findUserByEmail(email: string) {
   }
 }
 
-export async function findTimesheetById(id: string) {
+export async function findTimesheetById(timesheetId: string) {
+  // console.log(timesheetId);
+  if (timesheetId && timesheetId !== "today") {
+    try {
+      await client.connect();
+      const database = client.db("timesheets");
+      // Specifying a Schema is always optional, but it enables type hinting on
+      // finds and inserts
+      const timesheets = database.collection("timesheets");
+      // console.log(id);
+      const timesheetObjectId = new ObjectId(timesheetId.toString());
+      const timesheet = await timesheets.findOne(
+        { _id: timesheetObjectId },
+      );
+      // console.log(timesheet);
+      return timesheet;
+    } finally {
+      // await client.close();
+    }
+  }
+}
+
+export async function createNewTimesheet(initialEvent: TimesheetEvent) {
   try {
     await client.connect();
     const database = client.db("timesheets");
@@ -63,10 +92,34 @@ export async function findTimesheetById(id: string) {
     // finds and inserts
     const timesheets = database.collection("timesheets");
     // console.log(id);
-    const timesheetId = new ObjectId(id.toString());
-    const timesheet = await timesheets.findOne(
-      { _id: timesheetId },
+    const timesheet = await timesheets.insertOne(
+      { events: [initialEvent] },
     );
+    // console.log(timesheet);
+    return timesheet;
+  } finally {
+    // await client.close();
+  }
+}
+
+export async function addEventToTimesheet(
+  timesheetId: string,
+  timesheetEvent: TimesheetEvent,
+) {
+  try {
+    await client.connect();
+    const database = client.db("timesheets");
+    // Specifying a Schema is always optional, but it enables type hinting on
+    // finds and inserts
+    const timesheets = database.collection("timesheets");
+    const timesheetObjectId = new ObjectId(timesheetId.toString());
+    const timesheet = await timesheets.findOne(
+      { _id: timesheetObjectId },
+    );
+    if (timesheet) {
+      timesheet.events.push(timesheetEvent);
+      timesheet.save();
+    }
     // console.log(timesheet);
     return timesheet;
   } finally {

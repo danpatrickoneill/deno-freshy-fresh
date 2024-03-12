@@ -39,8 +39,7 @@ export const handler: Handlers = {
     const user = await users.collection("users").findOne({
       email: "test@test.com",
     });
-    console.log(51, user);
-    // const timesheetId = user?.timesheets?.[dateString.value.toDateString()]
+    // console.log(51, user);
     const timesheetId = user?.timesheets["03-15-2024"];
     const timesheets = await establishConnection("timesheets");
     const timesheet = await timesheets.collection("timesheets").findOne({

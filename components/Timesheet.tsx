@@ -1,5 +1,14 @@
 import { HandlerContext, Handlers, PageProps } from "$fresh/server.ts";
-import { findTimesheetById, findUserByEmail } from "../utils/dbUtils.ts";
+import { addEventToTimesheet } from "../utils/dbUtils.ts";
+import {
+  createNewTimesheet,
+  findTimesheetById,
+  findUserByEmail,
+} from "../utils/dbUtils.ts";
+import {
+  getStandardizedMonthDayYearKeyFromDate,
+  selectedDate,
+} from "../utils/timeUtils.ts";
 
 const columns = ["Start Time", "End Time", "Case Name", "Activity"];
 
@@ -32,9 +41,11 @@ function formatColumnName(string: string) {
 //  Can cache ID permanently and events refreshed on demand
 export const handler: Handlers = {
   async GET(req: Request, ctx: HandlerContext) {
+    const timesheetKey = getStandardizedMonthDayYearKeyFromDate(
+      selectedDate.value,
+    );
     // Gotta refactor mongo connection into util that I can assign to db here
     const user = await findUserByEmail("test@test.com");
-    console.log(51, user);
     // const timesheetId = user?.timesheets?.[dateString.value.toDateString()]
     const timesheetId = user?.timesheets["03-15-2024"];
     const timesheet = await findTimesheetById(timesheetId);
@@ -44,7 +55,42 @@ export const handler: Handlers = {
         message: "Timesheet does not exist",
       });
     }
-    console.log(61);
+    return ctx.render(timesheet);
+  },
+  async POST(req: Request, ctx: HandlerContext) {
+    // Gotta refactor mongo connection into util that I can assign to db here
+    const user = await findUserByEmail("test@test.com");
+    // const timesheetId = user?.timesheets?.[dateString.value.toDateString()]
+    const newEvent = {
+      startTime: "1",
+      endTime: "1",
+      eventName: "1",
+      activity: "1",
+    };
+    const timesheet = await createNewTimesheet(newEvent);
+
+    if (!timesheet) {
+      return ctx.renderNotFound({
+        message: "Timesheet does not exist",
+      });
+    }
+    return ctx.render(timesheet);
+  },
+  async PUT(req: Request, ctx: HandlerContext) {
+    const timesheetId = ctx.params.id;
+    const newEvent = {
+      startTime: "1",
+      endTime: "1",
+      eventName: "1",
+      activity: "1",
+    };
+    const timesheet = await addEventToTimesheet(timesheetId, newEvent);
+
+    if (!timesheet) {
+      return ctx.renderNotFound({
+        message: "Timesheet does not exist",
+      });
+    }
     return ctx.render(timesheet);
   },
 };
@@ -73,7 +119,7 @@ export function Timesheet(props: TimesheetProps) {
           </thead>
           <tbody>
             {/* Returned table goes here */}
-            {events.map((row: TimesheetEvent) => {
+            {events?.map((row: TimesheetEvent) => {
               return (
                 <tr>
                   <td>{row.startTime}</td>

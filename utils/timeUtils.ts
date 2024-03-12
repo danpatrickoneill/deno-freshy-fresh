@@ -1,7 +1,9 @@
-import { signal } from "@preact/signals";
+import { effect, signal } from "@preact/signals";
 
 const d = new Date();
-const selectedDate = signal(d);
+export const selectedDate = signal(d);
+
+effect(() => console.log(selectedDate.value));
 
 export function getStandardizedMonthDayYearKeyFromDate(date: Date) {
   const month = date.getMonth() + 1;
@@ -11,8 +13,4 @@ export function getStandardizedMonthDayYearKeyFromDate(date: Date) {
   const yearString = date.getFullYear().toString();
 
   return `${yearString}-${monthString}-${dayString}`;
-}
-
-export function getSelectedDate() {
-  return selectedDate;
 }

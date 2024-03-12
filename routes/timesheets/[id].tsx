@@ -2,7 +2,7 @@ import { Timesheet } from "../../components/Timesheet.tsx";
 import { findTimesheetById, findUserByEmail } from "../../utils/dbUtils.ts";
 import { EventInputForm } from "../../components/EventInputForm.tsx";
 import { DatePicker } from "../../islands/DatePicker.tsx";
-import { getSelectedDate } from "../../utils/timeUtils.ts";
+import { selectedDate, getStandardizedMonthDayYearKeyFromDate } from "../../utils/timeUtils.ts";
 import { Nav } from "../../components/Nav.tsx";
 
 interface TimesheetEvent {
@@ -13,26 +13,24 @@ interface TimesheetEvent {
 }
 
 export default async function TimesheetPage(_req: any, ctx: any) {
+  console.log(16, selectedDate.value)
+  const timesheetKey = getStandardizedMonthDayYearKeyFromDate(selectedDate.value)
   // Email should live in context somehow once authorized?
   const user = await findUserByEmail("test@test.com");
   //   console.log(user);
-  const id = user?.timesheets["03-11-2024"];
+  const id = user?.timesheets[timesheetKey];
   //   console.log(id)
   const timesheet = await findTimesheetById(id);
 
-  //   console.log(timesheet, ctx.params);
+    // console.log(selectedDate, timesheetKey, id, timesheet, ctx.params.id);
 
-  if (!timesheet) {
-    return <h1>Project not found</h1>;
-  }
+
   const eventOne = {
     startTime: "1",
     endTime: "1",
     eventName: "1",
     activity: "1",
   };
-  const dateString = new Date("03-11-2024");
-  const selectedDate = getSelectedDate();
   return (
     <div class="px-4 py-8 mx-auto my-8">
       <div class="max-w-screen-md mx-auto grid grid-cols-5 grid-rows-5 app-container">
@@ -40,8 +38,8 @@ export default async function TimesheetPage(_req: any, ctx: any) {
         <DatePicker selectedDate={selectedDate} />
         <Timesheet
           columns={["x"]}
-          events={timesheet.events}
-          dateString={dateString}
+          events={timesheet?.events}
+          dateString={selectedDate.value}
         />
       </div>
     </div>

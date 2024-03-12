@@ -2,7 +2,7 @@
 import { EventInputForm } from "../../components/EventInputForm.tsx";
 import { DatePicker } from "../../islands/DatePicker.tsx";
 import { Timesheet } from "../../components/Timesheet.tsx";
-import {getSelectedDate} from "../../utils/timeUtils.ts"
+import {selectedDate} from "../../utils/timeUtils.ts"
 
 interface TimesheetEvent {
   startTime: string;
@@ -19,7 +19,6 @@ export default function Home() {
     eventName: "1",
     activity: "1",
   };
-  const selectedDate = getSelectedDate()
   return (
     <div class="px-4 py-8 mx-auto bg-[#86efac]">
       <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
