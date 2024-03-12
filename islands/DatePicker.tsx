@@ -20,8 +20,8 @@ export function DatePicker(props: DatePickerProps) {
   const dateValue = getStandardizedMonthDayYearKeyFromDate(date)
   console.log(dateValue);
   return (
-    <div class="flex gap-8 py-6">
-      <button onClick={() => incrementDate(-1)}>Go to previous day</button>
+    <div class="col-span-4 flex gap-8 py-6">
+      <button class="flex gap-8 py-6" onClick={() => incrementDate(-1)}>Go to previous day</button>
       <input
         type="date"
         name="Desired date"

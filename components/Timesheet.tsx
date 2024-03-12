@@ -59,27 +59,32 @@ export function Timesheet(props: TimesheetProps) {
   }
 
   return (
-    <div class="tableContainer">
-      <table aria-label="a table of events with start and end times along with other data">
-        <thead>
-          <tr>
-            {columns.map((col) => <th>{formatColumnName(col)}</th>)}
-          </tr>
-        </thead>
-        <tbody>
-          {/* Returned table goes here */}
-          {events.map((row: TimesheetEvent) => {
-            return (
-              <tr>
-                <td>{row.startTime}</td>
-                <td>{row.endTime}</td>
-                <td>{row.eventName}</td>
-                <td>{row.activity}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-        <tfoot>
+    <>
+      {/* Need to figure out all this grid stuff! */}
+      <div class="tableContainer col-span-4 row-span-4 ">
+        <table
+          class="col-span-4 row-span-4 grid auto-cols-min auto-rows-min"
+          aria-label="a table of events with start and end times along with other data"
+        >
+          <thead>
+            <tr>
+              {columns.map((col) => <th class="">{formatColumnName(col)}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {/* Returned table goes here */}
+            {events.map((row: TimesheetEvent) => {
+              return (
+                <tr>
+                  <td>{row.startTime}</td>
+                  <td>{row.endTime}</td>
+                  <td>{row.eventName}</td>
+                  <td>{row.activity}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+          <tfoot>
             <tr>
               <td>
                 <input
@@ -114,9 +119,11 @@ export function Timesheet(props: TimesheetProps) {
                 />
               </td>
             </tr>
-        </tfoot>
-      </table>
+          </tfoot>
+        </table>
+        {/* Form can post to existing timesheet ID or create new */}
+      </div>
       <form id="newEvent" action=""></form>
-    </div>
+    </>
   );
 }
