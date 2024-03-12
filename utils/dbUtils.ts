@@ -49,10 +49,9 @@ export async function findUserByEmail(email: string) {
     const user = await users.findOne(
       { email },
     );
-    console.log(user);
     return user;
   } finally {
-    await client.close();
+    // await client.close();
   }
 }
 
@@ -71,6 +70,6 @@ export async function findTimesheetById(id: string) {
     // console.log(timesheet);
     return timesheet;
   } finally {
-    await client.close();
+    // await client.close();
   }
 }

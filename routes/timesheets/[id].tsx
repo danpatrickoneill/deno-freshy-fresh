@@ -12,14 +12,15 @@ interface TimesheetEvent {
 }
 
 export default async function TimesheetPage(_req: any, ctx: any) {
+  // Email should live in context somehow once authorized?
   const user = await findUserByEmail("test@test.com");
-//   console.log(user);
-  const id = user?.timesheets["03-11-2024"]
-//   console.log(id)
+  //   console.log(user);
+  const id = user?.timesheets["03-11-2024"];
+  //   console.log(id)
   const timesheet = await findTimesheetById(id);
 
-//   console.log(timesheet, ctx.params);
-    
+  //   console.log(timesheet, ctx.params);
+
   if (!timesheet) {
     return <h1>Project not found</h1>;
   }
@@ -30,7 +31,6 @@ export default async function TimesheetPage(_req: any, ctx: any) {
     activity: "1",
   };
   const dateString = new Date("03-11-2024");
-//   const dateString = new Date("4/16/2024");
 
   return (
     <div class="px-4 py-8 mx-auto bg-[#86efac]">
