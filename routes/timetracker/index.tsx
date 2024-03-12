@@ -26,7 +26,6 @@ export default function Home() {
         <Timesheet
           columns={["x"]}
           events={[eventOne]}
-          dateString={selectedDate.value}
         />
       </div>
     </div>

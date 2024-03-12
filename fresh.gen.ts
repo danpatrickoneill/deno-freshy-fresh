@@ -6,9 +6,10 @@ import * as $0 from "./routes/_404.tsx";
 import * as $1 from "./routes/_app.tsx";
 import * as $2 from "./routes/api/event.ts";
 import * as $3 from "./routes/api/timesheet.ts";
-import * as $4 from "./routes/index.tsx";
-import * as $5 from "./routes/timesheets/[id].tsx";
-import * as $6 from "./routes/timetracker/index.tsx";
+import * as $4 from "./routes/api/timesheet/[id].ts";
+import * as $5 from "./routes/index.tsx";
+import * as $6 from "./routes/timesheets/[id].tsx";
+import * as $7 from "./routes/timetracker/index.tsx";
 import * as $$0 from "./islands/DatePicker.tsx";
 import * as $$1 from "./islands/Sticky.tsx";
 
@@ -18,9 +19,10 @@ const manifest = {
     "./routes/_app.tsx": $1,
     "./routes/api/event.ts": $2,
     "./routes/api/timesheet.ts": $3,
-    "./routes/index.tsx": $4,
-    "./routes/timesheets/[id].tsx": $5,
-    "./routes/timetracker/index.tsx": $6,
+    "./routes/api/timesheet/[id].ts": $4,
+    "./routes/index.tsx": $5,
+    "./routes/timesheets/[id].tsx": $6,
+    "./routes/timetracker/index.tsx": $7,
   },
   islands: {
     "./islands/DatePicker.tsx": $$0,

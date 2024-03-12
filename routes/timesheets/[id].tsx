@@ -11,16 +11,27 @@ interface TimesheetEvent {
   eventName: string;
   activity: string;
 }
+async function fetchTimesheet(id: string) {
+  try {
+    const url = `http:localhost:8000/api/timesheet/test`;
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error(`Request failed: GET ${url}`);
+    return await resp;
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 export default async function TimesheetPage(_req: any, ctx: any) {
-  console.log(16)
+  console.log(16);
+
   const timesheetKey = getStandardizedMonthDayYearKeyFromSelectedDate();
   // Email should live in context somehow once authorized?
   const user = await findUserByEmail("test@test.com");
   //   console.log(user);
   const id = user?.timesheets[timesheetKey];
   //   console.log(id)
-  const timesheet = await findTimesheetById(id);
+  const timesheet = await fetchTimesheet(id);
 
   console.log(timesheetKey, id, timesheet, ctx.params.id);
 

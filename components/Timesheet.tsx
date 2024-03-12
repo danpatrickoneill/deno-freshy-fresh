@@ -44,7 +44,7 @@ export const handler: Handlers = {
     const user = await findUserByEmail("test@test.com");
     // const timesheetId = user?.timesheets?.[dateString.value.toDateString()]
     const timesheetId = user?.timesheets["03-15-2024"];
-    const timesheet = await findTimesheetById(timesheetId);
+    // const timesheet = await findTimesheetById(timesheetId);
 
     if (!timesheet) {
       return ctx.renderNotFound({
