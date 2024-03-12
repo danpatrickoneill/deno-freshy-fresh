@@ -80,12 +80,13 @@ export function Timesheet(props: TimesheetProps) {
           })}
         </tbody>
         <tfoot>
-          <form>
             <tr>
               <td>
                 <input
                   type="time"
                   name="Start time"
+                  label="Start time"
+                  form="newEvent"
                 />
               </td>
               <td>
@@ -93,6 +94,7 @@ export function Timesheet(props: TimesheetProps) {
                   type="time"
                   name="End time"
                   label="End time"
+                  form="newEvent"
                 />
               </td>
               <td>
@@ -100,6 +102,7 @@ export function Timesheet(props: TimesheetProps) {
                   type="text"
                   name="name"
                   label="name"
+                  form="newEvent"
                 />
               </td>
               <td>
@@ -107,12 +110,13 @@ export function Timesheet(props: TimesheetProps) {
                   type="text"
                   name="Activity"
                   label="Activity"
+                  form="newEvent"
                 />
               </td>
             </tr>
-          </form>
         </tfoot>
       </table>
+      <form id="newEvent" action=""></form>
     </div>
   );
 }
