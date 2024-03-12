@@ -1,5 +1,3 @@
-import { JSX } from "preact";
-
 export function EventInputForm(props: object) {
   return (
     <div className="container">
@@ -10,6 +8,7 @@ export function EventInputForm(props: object) {
           <input
             type="time"
             name="Start time"
+            label="Start time"
           />
         </label>
         <label>

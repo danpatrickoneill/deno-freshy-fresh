@@ -9,9 +9,8 @@ import * as $3 from "./routes/api/timesheet.ts";
 import * as $4 from "./routes/index.tsx";
 import * as $5 from "./routes/timesheets/[id].tsx";
 import * as $6 from "./routes/timetracker/index.tsx";
-import * as $$0 from "./islands/Counter.tsx";
-import * as $$1 from "./islands/DatePicker.tsx";
-import * as $$2 from "./islands/Sticky.tsx";
+import * as $$0 from "./islands/DatePicker.tsx";
+import * as $$1 from "./islands/Sticky.tsx";
 
 const manifest = {
   routes: {
@@ -24,9 +23,8 @@ const manifest = {
     "./routes/timetracker/index.tsx": $6,
   },
   islands: {
-    "./islands/Counter.tsx": $$0,
-    "./islands/DatePicker.tsx": $$1,
-    "./islands/Sticky.tsx": $$2,
+    "./islands/DatePicker.tsx": $$0,
+    "./islands/Sticky.tsx": $$1,
   },
   baseUrl: import.meta.url,
 };

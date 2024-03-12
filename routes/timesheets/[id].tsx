@@ -1,8 +1,8 @@
-import { useSignal } from "@preact/signals";
 import { Timesheet } from "../../components/Timesheet.tsx";
 import { findTimesheetById, findUserByEmail } from "../../utils/dbUtils.ts";
 import { EventInputForm } from "../../components/EventInputForm.tsx";
 import { DatePicker } from "../../islands/DatePicker.tsx";
+import { getSelectedDate } from "../../utils/timeUtils.ts";
 
 import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
 
@@ -36,6 +36,7 @@ export default async function TimesheetPage(_req: any, ctx: any) {
     activity: "1",
   };
   const dateString = new Date("03-11-2024");
+  const selectedDate = getSelectedDate();
   return (
     <>
       <head>
@@ -49,8 +50,9 @@ export default async function TimesheetPage(_req: any, ctx: any) {
       </head>
       <div class="px-4 py-8 mx-auto bg-[#86efac]">
         <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
+          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          <EventInputForm />
+          <DatePicker selectedDate={selectedDate} />
           <Timesheet
             columns={["x"]}
             events={timesheet.events}

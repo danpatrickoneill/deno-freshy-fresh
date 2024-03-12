@@ -1,5 +1,4 @@
 import type { Signal } from "@preact/signals";
-import { JSX } from "preact";
 import { HandlerContext, Handlers, PageProps } from "$fresh/server.ts";
 import { establishConnection } from "../../utils/dbUtils.ts";
 

@@ -79,6 +79,39 @@ export function Timesheet(props: TimesheetProps) {
             );
           })}
         </tbody>
+        <tfoot>
+          <form>
+            <tr>
+              <td>
+                <input
+                  type="time"
+                  name="Start time"
+                />
+              </td>
+              <td>
+                <input
+                  type="time"
+                  name="End time"
+                  label="End time"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name="name"
+                  label="name"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name="Activity"
+                  label="Activity"
+                />
+              </td>
+            </tr>
+          </form>
+        </tfoot>
       </table>
     </div>
   );
