@@ -17,11 +17,12 @@ export function DatePicker(props: { dateString: string }) {
   };
   const goToNextDay = async (timestamp: string) => {
     try {
-      const url = `http:localhost:8000/api/user/${timestamp}`;
+      const url = `/api/user/${timestamp}`;
       console.log(url);
-      const res = await fetch(url);
+      const res = await fetch(url, {method: "POST"});
       console.log(30, res);
-      return res.json();
+      globalThis.location.assign(res.url)
+      return res
     } catch (e) {
       console.log(e);
     }
