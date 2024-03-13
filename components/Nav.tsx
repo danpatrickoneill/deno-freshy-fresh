@@ -19,17 +19,9 @@ function handleCredentialResponse(googleUser: any) {
 }
 
 export function Nav(props: object) {
+  console.log(22, client_id);
   return (
     <html>
-      <head>
-        <script src="https://apis.google.com/js/platform.js" async defer>
-        </script>
-        <meta
-          name="google-signin-client_id"
-          content={client_id}
-        >
-        </meta>
-      </head>
       <div className="nav-container bg-[#577590] col-span-1 row-span-3 flex flex-col justify-around">
         <body>
           <script src="https://accounts.google.com/gsi/client" async defer>
