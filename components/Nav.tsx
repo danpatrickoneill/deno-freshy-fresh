@@ -19,7 +19,6 @@ function handleCredentialResponse(googleUser: any) {
 }
 
 export function Nav(props: object) {
-  console.log(22, client_id);
   return (
     <html>
       <div className="nav-container bg-[#577590] col-span-1 row-span-3 flex flex-col justify-around">
