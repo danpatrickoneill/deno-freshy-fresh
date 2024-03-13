@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "google-auth-library": "^9.6.3",
-    "mongodb": "^6.4.0"
+    "google-auth-library": "^9.6.3"
   }
 }

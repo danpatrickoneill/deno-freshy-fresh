@@ -1,4 +1,4 @@
-import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
+import { MongoClient, ObjectId } from "npm:mongodb@6";
 import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
 
 interface TimesheetEvent {
