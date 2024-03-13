@@ -4,9 +4,9 @@ import { DatePicker } from "../../islands/DatePicker.tsx";
 import { Timesheet } from "../../components/Timesheet.tsx";
 
 interface TimesheetEvent {
-  startTime: string;
-  endTime: string;
-  eventName: string;
+  start: string;
+  end: string;
+  name: string;
   activity: string;
 }
 

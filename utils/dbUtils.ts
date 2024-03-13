@@ -1,10 +1,11 @@
 import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
 import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
+import { getStandardizedMonthDayYearKeyFromSelectedDate } from "./timeUtils.ts";
 
 interface TimesheetEvent {
-  startTime: string;
-  endTime: string;
-  eventName: string;
+  start: string;
+  end: string;
+  name: string;
   activity: string;
 }
 
@@ -55,6 +56,7 @@ export async function findUserByEmail(email: string) {
     const users = database.collection("users");
     const user = await users.findOne(
       { email },
+      { projection: { _id: 0, timesheets: 1 } },
     );
     return user;
   } finally {
@@ -63,8 +65,8 @@ export async function findUserByEmail(email: string) {
 }
 
 export async function findTimesheetById(timesheetId: string) {
-  // console.log(timesheetId);
-  if (timesheetId && timesheetId !== "today") {
+  console.log(67, timesheetId);
+  if (timesheetId && timesheetId !== "undefined") {
     try {
       await client.connect();
       const database = client.db("timesheets");
@@ -72,7 +74,9 @@ export async function findTimesheetById(timesheetId: string) {
       // finds and inserts
       const timesheets = database.collection("timesheets");
       console.log(!!timesheets, timesheetId);
-      const timesheetObjectId = new ObjectId("65ef694a05f310ac5a76bbf6".toString());
+      const timesheetObjectId = new ObjectId(
+        timesheetId.toString(),
+      );
       const timesheet = await timesheets.findOne(
         { _id: timesheetObjectId },
       );
@@ -92,11 +96,42 @@ export async function createNewTimesheet(initialEvent: TimesheetEvent) {
     // finds and inserts
     const timesheets = database.collection("timesheets");
     // console.log(id);
+    const timesheetKey = getStandardizedMonthDayYearKeyFromSelectedDate();
+    console.log(100, timesheetKey)
     const timesheet = await timesheets.insertOne(
-      { events: [initialEvent] },
+      { events: [initialEvent], timesheetKey },
     );
     // console.log(timesheet);
     return timesheet;
+  } finally {
+    // await client.close();
+  }
+}
+
+export async function addTimesheetToUser(
+  timesheetId: ObjectId,
+  userEmail: any,
+) {
+  try {
+    const database = client.db("users");
+    // Specifying a Schema is always optional, but it enables type hinting on
+    // finds and inserts
+    const users = database.collection("users");
+
+    const timesheetKey = getStandardizedMonthDayYearKeyFromSelectedDate();
+    const filter = { email: "test@test.com" };
+    // update the value of the 'quantity' field to 5
+    const key = "timesheets." + timesheetKey;
+    console.log(126, key);
+    const updateDocument = {
+      $set: {
+        [key]: timesheetId,
+      },
+    };
+    const res = await users.updateOne(filter, updateDocument);
+    console.log(res);
+  } catch (e) {
+    console.log(e);
   } finally {
     // await client.close();
   }

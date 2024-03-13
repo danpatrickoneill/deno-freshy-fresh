@@ -1,6 +1,7 @@
 import { HandlerContext, Handlers, PageProps } from "$fresh/server.ts";
 import { addEventToTimesheet } from "../../../utils/dbUtils.ts";
 import {
+  addTimesheetToUser,
   createNewTimesheet,
   findTimesheetById,
   findUserByEmail,
@@ -9,80 +10,61 @@ import {
   getStandardizedMonthDayYearKeyFromSelectedDate,
 } from "../../../utils/timeUtils.ts";
 
-// interface TimesheetEvent {
-//   startTime: string;
-//   endTime: string;
-//   eventName: string;
-//   activity: string;
-// }
-// // type TimesheetEvent = object
-
-// interface TimesheetProps {
-//   columns: string[];
-//   events: TimesheetEvent[];
-// }
-
-// // async function fetchVotedItems() {
-// //   const url = "/api/timesheet/[id]";
-// //   const resp = await fetch(url);
-// //   if (!resp.ok) throw new Error(`Request failed: GET ${url}`);
-// //   return await resp.json() as Item[];
-// // }
-
-// function formatColumnName(string: string) {
-//   return string;
-// }
-
-// //  User has a timesheet dict with dateString format keys and timesheet IDs; then handle lookup
-// //  Can cache ID permanently and events refreshed on demand
-// export const handler: Handlers = {
-//   async GET(req: Request, ctx: HandlerContext) {
-//     const timesheetKey = getStandardizedMonthDayYearKeyFromSelectedDate();
-//     // Gotta refactor mongo connection into util that I can assign to db here
-//     const user = await findUserByEmail("test@test.com");
-//     // const timesheetId = user?.timesheets?.[dateString.value.toDateString()]
-//     const timesheetId = user?.timesheets["03-15-2024"];
-//     console.log(45, req.url)
-//     const timesheet = await findTimesheetById("65ef694a05f310ac5a76bbf6");
-
-//     if (!timesheet) {
-//       return ctx.renderNotFound({
-//         message: "Timesheet does not exist",
-//       });
-//     }
-//     return ctx.render(timesheet);
-//   },
-// };
-
-// export default function TimesheetPage(props: object) {
-//   return (
-//     <div>
-//       <h1>{props.data.event}</h1>
-//       <p>{props.data.stars} stars</p>
-//     </div>
-//   );
-// }
-
+interface TimesheetEvent {
+  start: string;
+  end: string;
+  name: string;
+  activity: string;
+}
 interface Timesheet {
   name: string;
   stars: number;
 }
 
-export default async function TimesheetPage(_req: any, ctx: any) {
-  console.log(72, ctx.params);
-  
-  const timesheet = await findTimesheetById(ctx.params.id);
-  console.log(73, timesheet);
-
-  return JSON.stringify(timesheet?.events);
-  // if (!timesheet) {
-  //   return <h1>{"Project not found"}</h1>;
-  // }
-
-  // return (
-  //   <div>
-  //     <h1>{project.name}</h1>
-  //     <p>{project.stars} stars</p>
-  //   </div>
-  // );
+interface TimesheetProps {
+  columns: string[];
+  events: TimesheetEvent[];
 }
+
+function formatColumnName(string: string) {
+  return string;
+}
+
+//  User has a timesheet dict with dateString format keys and timesheet IDs; then handle lookup
+//  Can cache ID permanently and events refreshed on demand
+export const handler: Handlers = {
+  async GET(req: Request, ctx: HandlerContext) {
+    console.log(38, ctx.params);
+    const timesheetId = ctx.params.id;
+    const timesheet = await findTimesheetById(timesheetId);
+
+    let responseBody;
+    if (!timesheet) {
+      responseBody = JSON.stringify({
+        message: "Timesheet does not exist.",
+      });
+      return new Response(responseBody, { status: 404 });
+    }
+    responseBody = JSON.stringify(timesheet);
+    return new Response(responseBody);
+  },
+  async POST(req: Request, ctx: HandlerContext) {
+    const timesheetId = ctx.params.id;
+    const newEvent = {
+      startTime: "1",
+      endTime: "1",
+      eventName: "1",
+      activity: "1",
+    };
+    const timesheet = await addEventToTimesheet(timesheetId, newEvent);
+
+    let responseBody;
+    if (!timesheet) {
+      responseBody = JSON.stringify({
+        message: "Timesheet does not exist.",
+      });
+    }
+    responseBody = JSON.stringify(timesheet);
+    return new Response(responseBody);
+  },
+};

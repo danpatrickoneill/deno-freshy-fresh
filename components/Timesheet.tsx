@@ -12,9 +12,9 @@ import {
 const columns = ["Start Time", "End Time", "Case Name", "Activity"];
 
 interface TimesheetEvent {
-  startTime: string;
-  endTime: string;
-  eventName: string;
+  start: string;
+  end: string;
+  name: string;
   activity: string;
 }
 // type TimesheetEvent = object
@@ -24,72 +24,9 @@ interface TimesheetProps {
   events: TimesheetEvent[];
 }
 
-// async function fetchVotedItems() {
-//   const url = "/api/timesheet/[id]";
-//   const resp = await fetch(url);
-//   if (!resp.ok) throw new Error(`Request failed: GET ${url}`);
-//   return await resp.json() as Item[];
-// }
-
 function formatColumnName(string: string) {
   return string;
 }
-
-//  User has a timesheet dict with dateString format keys and timesheet IDs; then handle lookup
-//  Can cache ID permanently and events refreshed on demand
-export const handler: Handlers = {
-  async GET(req: Request, ctx: HandlerContext) {
-    const timesheetKey = getStandardizedMonthDayYearKeyFromSelectedDate();
-    // Gotta refactor mongo connection into util that I can assign to db here
-    const user = await findUserByEmail("test@test.com");
-    // const timesheetId = user?.timesheets?.[dateString.value.toDateString()]
-    const timesheetId = user?.timesheets["03-15-2024"];
-    // const timesheet = await findTimesheetById(timesheetId);
-
-    if (!timesheet) {
-      return ctx.renderNotFound({
-        message: "Timesheet does not exist",
-      });
-    }
-    return ctx.render(timesheet);
-  },
-  async POST(req: Request, ctx: HandlerContext) {
-    // Gotta refactor mongo connection into util that I can assign to db here
-    const user = await findUserByEmail("test@test.com");
-    // const timesheetId = user?.timesheets?.[dateString.value.toDateString()]
-    const newEvent = {
-      startTime: "1",
-      endTime: "1",
-      eventName: "1",
-      activity: "1",
-    };
-    const timesheet = await createNewTimesheet(newEvent);
-
-    if (!timesheet) {
-      return ctx.renderNotFound({
-        message: "Timesheet does not exist",
-      });
-    }
-    return ctx.render(timesheet);
-  },
-  async PUT(req: Request, ctx: HandlerContext) {
-    const timesheetId = ctx.params.id;
-    const newEvent = {
-      startTime: "1",
-      endTime: "1",
-      eventName: "1",
-      activity: "1",
-    };
-    const timesheet = await addEventToTimesheet(timesheetId, newEvent);
-
-    if (!timesheet) {
-      return ctx.renderNotFound({
-        message: "Timesheet does not exist",
-      });
-    }
-    return ctx.render(timesheet);
-  },
-};
 
 // Need to define type for this which will be good
 export function Timesheet(props: TimesheetProps) {
@@ -118,9 +55,9 @@ export function Timesheet(props: TimesheetProps) {
             {events?.map((row: TimesheetEvent) => {
               return (
                 <tr>
-                  <td>{row.startTime}</td>
-                  <td>{row.endTime}</td>
-                  <td>{row.eventName}</td>
+                  <td>{row.start}</td>
+                  <td>{row.end}</td>
+                  <td>{row.name}</td>
                   <td>{row.activity}</td>
                 </tr>
               );
@@ -131,7 +68,7 @@ export function Timesheet(props: TimesheetProps) {
               <td>
                 <input
                   type="time"
-                  name="Start time"
+                  name="start"
                   label="Start time"
                   form="newEvent"
                 />
@@ -139,7 +76,7 @@ export function Timesheet(props: TimesheetProps) {
               <td>
                 <input
                   type="time"
-                  name="End time"
+                  name="end"
                   label="End time"
                   form="newEvent"
                 />
@@ -155,7 +92,7 @@ export function Timesheet(props: TimesheetProps) {
               <td>
                 <input
                   type="text"
-                  name="Activity"
+                  name="activity"
                   label="Activity"
                   form="newEvent"
                 />
@@ -165,7 +102,7 @@ export function Timesheet(props: TimesheetProps) {
         </table>
         {/* Form can post to existing timesheet ID or create new */}
       </div>
-      <form id="newEvent" action=""></form>
+      <form id="newEvent" action="/api/timesheet/new" method="POST"><button>Start new Timesheet</button></form>
     </>
   );
 }
