@@ -9,11 +9,7 @@ interface TimesheetEvent {
 }
 
 const env = await load();
-const username = env["MONGO_USERNAME"];
-const password = env["PASSWORD"];
-
-const uri =
-  `mongodb+srv://${username}:${password}@dpo.hlrbfsz.mongodb.net/?retryWrites=true&w=majority&appName=DPO`;
+const uri = env["DB_URI"];
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri);
