@@ -22,6 +22,7 @@ interface TimesheetEvent {
 interface TimesheetProps {
   columns: string[];
   events: TimesheetEvent[] | null;
+  dateString: string;
 }
 
 function formatColumnName(string: string) {
@@ -30,7 +31,7 @@ function formatColumnName(string: string) {
 
 // Need to define type for this which will be good
 export function Timesheet(props: TimesheetProps) {
-  const { events } = props;
+  const { events, dateString } = props;
 
   interface Data {
     results: string[];
@@ -102,7 +103,13 @@ export function Timesheet(props: TimesheetProps) {
         </table>
         {/* Form can post to existing timesheet ID or create new */}
       </div>
-      <form id="newEvent" action="/api/timesheet/new" method="POST"><button>Start new Timesheet</button></form>
+      <form
+        id="newEvent"
+        action={`/api/timesheet/new/${dateString}`}
+        method="POST"
+      >
+        <button>Start new Timesheet</button>
+      </form>
     </>
   );
 }

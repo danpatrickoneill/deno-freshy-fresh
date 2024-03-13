@@ -1,6 +1,5 @@
 import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
 import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
-import { getStandardizedMonthDayYearKeyFromSelectedDate } from "./timeUtils.ts";
 
 interface TimesheetEvent {
   start: string;
@@ -109,7 +108,10 @@ export async function findTimesheetForUser(timestamp: string) {
   }
 }
 
-export async function createNewTimesheet(initialEvent: TimesheetEvent) {
+export async function createNewTimesheet(
+  initialEvent: TimesheetEvent,
+  dateString: string,
+) {
   try {
     await client.connect();
     const database = client.db("timesheets");
@@ -117,7 +119,7 @@ export async function createNewTimesheet(initialEvent: TimesheetEvent) {
     // finds and inserts
     const timesheets = database.collection("timesheets");
     // console.log(id);
-    const timesheetKey = getStandardizedMonthDayYearKeyFromSelectedDate();
+    const timesheetKey = dateString;
     console.log(100, timesheetKey);
     const timesheet = await timesheets.insertOne(
       { events: [initialEvent], timesheetKey },

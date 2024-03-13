@@ -4,7 +4,7 @@ import {
 } from "../utils/timeUtils.ts";
 
 export function DatePicker(props: { dateString: string }) {
-  const { dateString } = props;
+  let { dateString } = props;
   const incrementDate = (numberOfDays: number) => {
     console.log(12, dateString);
     const date = new Date(`${dateString} 00:00:00`);
@@ -26,6 +26,11 @@ export function DatePicker(props: { dateString: string }) {
       console.log(e);
     }
   };
+
+  // Could implement with own input field, date picker is a pain
+  const jumpToDate = async (date: Date) => {
+  };
+
 
   return (
     <div class="col-span-4 flex gap-8 py-6">

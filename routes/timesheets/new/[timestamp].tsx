@@ -28,6 +28,7 @@ export default async function TimesheetPage(req: any, ctx: any) {
         <DatePicker dateString={timestamp} />
         <Timesheet
           columns={["x"]}
+          dateString={timestamp}
         />
       </div>
     </div>
