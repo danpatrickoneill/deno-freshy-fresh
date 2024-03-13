@@ -1,41 +1,46 @@
 import { Signal } from "@preact/signals";
 import {
   getStandardizedMonthDayYearKeyFromDate,
-  getStandardizedMonthDayYearKeyFromSelectedDate,
-  selectedDate,
-  selectedDateString,
 } from "../utils/timeUtils.ts";
 
-export function DatePicker(props: {dateString: Signal<string>, locked: true | false }) {
-  const { dateString, locked } = props;
+export function DatePicker(props: { dateString: string }) {
+  const { dateString } = props;
   const incrementDate = (numberOfDays: number) => {
-    const dateValue = getStandardizedMonthDayYearKeyFromSelectedDate();
-    const date = new Date(dateValue);
-    date.setDate(date.getDate() + numberOfDays);
-    console.log(date);
-    selectedDate.value = date;
-    // console.log(selectedDate);
-    const date2 = new Date(selectedDateString.value);
-    date2.setDate(date2.getDate() + numberOfDays);
-    console.log(20,date2);
-    selectedDateString.value = getStandardizedMonthDayYearKeyFromDate(date2);
+    console.log(12, dateString);
+    const date = new Date(`${dateString} 00:00:00`);
+    console.log(date, date.getDate(), numberOfDays);
+    const x = date.getDate() + numberOfDays;
+    date.setDate(x);
+    console.log(date, dateString);
+    const target = getStandardizedMonthDayYearKeyFromDate(date);
+    goToNextDay(target);
+  };
+  const goToNextDay = async (timestamp: string) => {
+    try {
+      const url = `http:localhost:8000/api/user/${timestamp}`;
+      console.log(url);
+      const res = await fetch(url);
+      console.log(30, res);
+      return res.json();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
     <div class="col-span-4 flex gap-8 py-6">
       <button
         class="flex gap-8 py-6"
-        onClick={() => incrementDate(0)}
-        disabled={locked}
+        onClick={() => incrementDate(-1)}
       >
         Go to previous day
       </button>
       <input
         type="date"
         name="Desired date"
-        value={dateString.value}
+        value={dateString}
       />
-      <button onClick={() => incrementDate(2)} disabled={locked}>
+      <button onClick={() => incrementDate(1)}>
         Go to next day
       </button>
     </div>

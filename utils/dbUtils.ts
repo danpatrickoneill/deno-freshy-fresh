@@ -56,7 +56,6 @@ export async function findUserByEmail(email: string) {
     const users = database.collection("users");
     const user = await users.findOne(
       { email },
-      { projection: { _id: 0, timesheets: 1 } },
     );
     return user;
   } finally {
@@ -88,6 +87,28 @@ export async function findTimesheetById(timesheetId: string) {
   }
 }
 
+export async function findTimesheetForUser(timestamp: string) {
+  console.log(92, timestamp);
+  if (timestamp) {
+    try {
+      await client.connect();
+      const database = client.db("users");
+      // Specifying a Schema is always optional, but it enables type hinting on
+      // finds and inserts
+      const users = database.collection("users");
+      const user = await users.findOne(
+        { email: "test@test.com" },
+      );
+      if (user) {
+        console.log(user);
+        return user.timesheets[timestamp];
+      }
+    } finally {
+      // await client.close();
+    }
+  }
+}
+
 export async function createNewTimesheet(initialEvent: TimesheetEvent) {
   try {
     await client.connect();
@@ -97,7 +118,7 @@ export async function createNewTimesheet(initialEvent: TimesheetEvent) {
     const timesheets = database.collection("timesheets");
     // console.log(id);
     const timesheetKey = getStandardizedMonthDayYearKeyFromSelectedDate();
-    console.log(100, timesheetKey)
+    console.log(100, timesheetKey);
     const timesheet = await timesheets.insertOne(
       { events: [initialEvent], timesheetKey },
     );

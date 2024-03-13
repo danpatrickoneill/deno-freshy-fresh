@@ -4,7 +4,7 @@ import {
   addTimesheetToUser,
   createNewTimesheet,
   findTimesheetById,
-  findUserByEmail,
+  findTimesheetForUser,
 } from "../../../utils/dbUtils.ts";
 import {
   getStandardizedMonthDayYearKeyFromSelectedDate,
@@ -35,36 +35,19 @@ function formatColumnName(string: string) {
 export const handler: Handlers = {
   async GET(req: Request, ctx: HandlerContext) {
     console.log(38, ctx.params);
-    const timesheetId = ctx.params.id;
-    const timesheet = await findTimesheetById(timesheetId);
-
+    const { timestamp } = ctx.params;
+    const timesheetId = await findTimesheetForUser(timestamp);
+    console.log(40, timestamp, timesheetId)
     let responseBody;
-    if (!timesheet) {
+    if (!timesheetId) {
       responseBody = JSON.stringify({
         message: "Timesheet does not exist.",
       });
-      return new Response(responseBody, { status: 404 });
+    const url = `http:localhost:8000/timesheets/new/${timestamp}`;
+    return Response.redirect(url);
     }
-    responseBody = JSON.stringify(timesheet);
-    return new Response(responseBody);
-  },
-  async POST(req: Request, ctx: HandlerContext) {
-    const timesheetId = ctx.params.id;
-    const newEvent = {
-      start: "1",
-      end: "1",
-      name: "1",
-      activity: "1",
-    };
-    const timesheet = await addEventToTimesheet(timesheetId, newEvent);
-
-    let responseBody;
-    if (!timesheet) {
-      responseBody = JSON.stringify({
-        message: "Timesheet does not exist.",
-      });
-    }
-    responseBody = JSON.stringify(timesheet);
-    return new Response(responseBody);
+    console.log(48, timesheetId)
+    const url = `http:localhost:8000/timesheets/${timesheetId.toString()}`;
+    return Response.redirect(url);
   },
 };

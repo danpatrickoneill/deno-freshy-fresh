@@ -21,7 +21,7 @@ interface TimesheetEvent {
 
 interface TimesheetProps {
   columns: string[];
-  events: TimesheetEvent[];
+  events: TimesheetEvent[] | null;
 }
 
 function formatColumnName(string: string) {
