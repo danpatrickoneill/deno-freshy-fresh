@@ -14,18 +14,16 @@ function handleCredentialResponse(googleUser: any) {
   const id_token = googleUser.getAuthResponse().id_token;
   console.log("ID Token: " + id_token);
 }
+globalThis.handleCredentialResponse = handleCredentialResponse;
 
 export function GoogleSignIn() {
-  window.handleCredentialResponse = handleCredentialResponse;
-globalThis.handleCredentialResponse = handleCredentialResponse
-globalThis.window.handleCredentialResponse = handleCredentialResponse
-console.log(globalThis.handleCredentialResponse)
+  console.log(globalThis.handleCredentialResponse);
   return (
     <>
       <div
         id="g_id_onload"
+        data-callback="handleCredentialResponse"
         data-client_id="704142127041-13pvqpiajl8bcp2g1jvv99bqt52deiae.apps.googleusercontent.com"
-        callback="handleCredentialResponse"
       >
       </div>
       <div class="g_id_signin" data-type="standard"></div>
