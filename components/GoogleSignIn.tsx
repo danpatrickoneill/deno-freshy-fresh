@@ -1,6 +1,7 @@
 import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
 
 function handleCredentialResponse(googleUser: any) {
+  console.log(4);
   // Useful data for your client-side scripts:
   const profile = googleUser.getBasicProfile();
   console.log("ID: " + profile.getId()); // Don't send this directly to your server!
@@ -22,8 +23,8 @@ export function GoogleSignIn() {
     <>
       <div
         id="g_id_onload"
-        data-callback="handleCredentialResponse"
         data-client_id="704142127041-13pvqpiajl8bcp2g1jvv99bqt52deiae.apps.googleusercontent.com"
+        callback="globalThis.handleCredentialResponse"
       >
       </div>
       <div class="g_id_signin" data-type="standard"></div>
