@@ -1,4 +1,4 @@
-import { GoogleSignIn } from "./GoogleSignIn.tsx";
+import { GoogleSignIn } from "./GoogleSignIn.jsx";
 
 export function Nav(props: object) {
   return (
