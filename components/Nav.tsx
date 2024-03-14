@@ -2,7 +2,6 @@
 
 // const env = await load();
 const client_id = Deno.env.get("GAUTH_CLIENT_ID");
-
 function handleCredentialResponse(googleUser: any) {
   // Useful data for your client-side scripts:
   const profile = googleUser.getBasicProfile();
@@ -19,7 +18,8 @@ function handleCredentialResponse(googleUser: any) {
 }
 
 export function Nav(props: object) {
-  return (
+console.log(21, client_id)
+return (
     <html>
       <div className="nav-container bg-[#577590] col-span-1 row-span-3 flex flex-col justify-around">
         <body>
