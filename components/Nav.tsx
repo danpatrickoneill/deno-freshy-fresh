@@ -17,9 +17,10 @@ function handleCredentialResponse(googleUser: any) {
   const id_token = googleUser.getAuthResponse().id_token;
   console.log("ID Token: " + id_token);
 }
+globalThis.handleCredentialResponse = handleCredentialResponse;
 
 export function Nav(props: object) {
-  globalThis.handleCredentialResponse = handleCredentialResponse;
+  console.log(globalThis.handleCredentialResponse);
   return (
     <html>
       <head>
