@@ -58,7 +58,7 @@ export async function findUserByEmail(email: string) {
     );
     return user;
   } finally {
-    // await client.close();
+    await client.close();
   }
 }
 
@@ -68,8 +68,7 @@ export async function findTimesheetById(timesheetId: string) {
     try {
       await client.connect();
       const database = client.db("timesheets");
-      // Specifying a Schema is always optional, but it enables type hinting on
-      // finds and inserts
+
       const timesheets = database.collection("timesheets");
       console.log(!!timesheets, timesheetId);
       const timesheetObjectId = new ObjectId(
@@ -81,7 +80,7 @@ export async function findTimesheetById(timesheetId: string) {
       console.log(timesheet);
       return timesheet;
     } finally {
-      // await client.close();
+      await client.close();
     }
   }
 }
@@ -92,8 +91,7 @@ export async function findTimesheetForUser(timestamp: string) {
     try {
       await client.connect();
       const database = client.db("users");
-      // Specifying a Schema is always optional, but it enables type hinting on
-      // finds and inserts
+
       const users = database.collection("users");
       const user = await users.findOne(
         { email: "test@test.com" },
@@ -103,7 +101,7 @@ export async function findTimesheetForUser(timestamp: string) {
         return user.timesheets[timestamp];
       }
     } finally {
-      // await client.close();
+      await client.close();
     }
   }
 }
@@ -127,7 +125,7 @@ export async function createNewTimesheet(
     // console.log(timesheet);
     return timesheet;
   } finally {
-    // await client.close();
+    await client.close();
   }
 }
 
@@ -156,7 +154,7 @@ export async function addTimesheetToUser(
   } catch (e) {
     console.log(e);
   } finally {
-    // await client.close();
+    await client.close();
   }
 }
 
@@ -181,6 +179,6 @@ export async function addEventToTimesheet(
     // console.log(timesheet);
     return timesheet;
   } finally {
-    // await client.close();
+    await client.close();
   }
 }
