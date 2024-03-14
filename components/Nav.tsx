@@ -1,7 +1,7 @@
-import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
+// import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
 
-const env = await load();
-const client_id = env["GAUTH_CLIENT_ID"];
+// const env = await load();
+const client_id = Deno.env.get("GAUTH_CLIENT_ID");
 
 function handleCredentialResponse(googleUser: any) {
   // Useful data for your client-side scripts:
