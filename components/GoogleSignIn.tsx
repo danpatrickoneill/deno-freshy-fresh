@@ -17,14 +17,11 @@ globalThis.handleCredentialResponse = (googleUser: any) => {
 const env = await load();
 
 export function GoogleSignIn(props: object) {
-  const client_id = env["GAUTH_CLIENT_ID"];
-  console.log(22, client_id);
-  console.log("I'm here!");
   return (
     <>
       <div
         id="g_id_onload"
-        data-client_id={client_id}
+        data-client_id="704142127041-13pvqpiajl8bcp2g1jvv99bqt52deiae.apps.googleusercontent.com"
         data-callback="handleCredentialResponse"
       >
       </div>
