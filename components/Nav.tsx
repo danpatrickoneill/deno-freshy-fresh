@@ -1,9 +1,10 @@
 import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
+import { verifyUserToken } from "../utils/userUtils.ts";
 
 const env = await load();
 const client_id = env["GAUTH_CLIENT_ID"];
 
-function handleCredentialResponse(googleUser: any) {
+async function handleCredentialResponse(googleUser: any) {
   // Useful data for your client-side scripts:
   const profile = googleUser.getBasicProfile();
   console.log("ID: " + profile.getId()); // Don't send this directly to your server!
@@ -15,6 +16,9 @@ function handleCredentialResponse(googleUser: any) {
 
   // The ID token you need to pass to your backend:
   const id_token = googleUser.getAuthResponse().id_token;
+
+  await verifyUserToken(id_token)
+
   console.log("ID Token: " + id_token);
 }
 globalThis.handleCredentialResponse = handleCredentialResponse;

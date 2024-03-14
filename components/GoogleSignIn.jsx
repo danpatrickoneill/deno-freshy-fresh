@@ -1,7 +1,6 @@
 import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
 
-function handleCredentialResponse(googleUser: any) {
-  console.log(4);
+async function handleCredentialResponse(  ) {
   // Useful data for your client-side scripts:
   const profile = googleUser.getBasicProfile();
   console.log("ID: " + profile.getId()); // Don't send this directly to your server!
@@ -13,18 +12,26 @@ function handleCredentialResponse(googleUser: any) {
 
   // The ID token you need to pass to your backend:
   const id_token = googleUser.getAuthResponse().id_token;
+  const url = "/api/user/login";
+  console.log(url);
+  const res = await fetch(url, { method: "POST" });
+  console.log(30, res);
+  globalThis.location.assign(res.url);
+  return res;
+
   console.log("ID Token: " + id_token);
 }
+
 globalThis.handleCredentialResponse = handleCredentialResponse;
 
-export function GoogleSignIn() {
+export async function GoogleSignIn() {
   console.log(globalThis.handleCredentialResponse);
   return (
     <>
       <div
         id="g_id_onload"
         data-client_id="704142127041-13pvqpiajl8bcp2g1jvv99bqt52deiae.apps.googleusercontent.com"
-        callback="globalThis.handleCredentialResponse"
+        callback="handleCredentialResponse"
       >
       </div>
       <div class="g_id_signin" data-type="standard"></div>
