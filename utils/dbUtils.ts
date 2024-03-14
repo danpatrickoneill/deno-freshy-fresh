@@ -1,5 +1,5 @@
 import { MongoClient, ObjectId } from "npm:mongodb@6";
-// import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
+import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
 
 interface TimesheetEvent {
   start: string;
@@ -8,11 +8,11 @@ interface TimesheetEvent {
   activity: string;
 }
 
-// const env = await load();
-const username = Deno.env.get("MONGO_USERNAME");
-const password = Deno.env.get("PASSWORD")
+const env = await load();
+const username = env["MONGO_USERNAME"];
+const password = env["PASSWORD"];
 
-const uri = 
+const uri =
   `mongodb+srv://${username}:${password}@dpo.hlrbfsz.mongodb.net/?retryWrites=true&w=majority&appName=DPO`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
