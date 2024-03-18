@@ -1,5 +1,8 @@
 import { OAuth2Client } from "npm:google-auth-library";
+import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
 
+const env = await load();
+const client_id = env["GAUTH_CLIENT_ID"];
 export function verifyUserToken(idToken: string) {
   console.log("VERIFYING TOKEN");
   const client = new OAuth2Client();

@@ -1,7 +1,5 @@
 import { Signal } from "@preact/signals";
-import {
-  getStandardizedMonthDayYearKeyFromDate,
-} from "../utils/timeUtils.ts";
+import { getStandardizedMonthDayYearKeyFromDate } from "../utils/timeUtils.ts";
 
 export function DatePicker(props: { dateString: string }) {
   let { dateString } = props;
@@ -19,10 +17,10 @@ export function DatePicker(props: { dateString: string }) {
     try {
       const url = `/api/user/${timestamp}`;
       console.log(url);
-      const res = await fetch(url, {method: "POST"});
+      const res = await fetch(url, { method: "POST" });
       console.log(30, res);
-      globalThis.location.assign(res.url)
-      return res
+      globalThis.location.assign(res.url);
+      return res;
     } catch (e) {
       console.log(e);
     }
@@ -31,7 +29,6 @@ export function DatePicker(props: { dateString: string }) {
   // Could implement with own input field, date picker is a pain
   const jumpToDate = async (date: Date) => {
   };
-
 
   return (
     <div class="col-span-4 flex gap-8 py-6">
