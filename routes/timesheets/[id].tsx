@@ -1,6 +1,4 @@
 import { Timesheet } from "../../components/Timesheet.tsx";
-import { findTimesheetById, findUserByEmail } from "../../utils/dbUtils.ts";
-import { EventInputForm } from "../../components/EventInputForm.tsx";
 import { DatePicker } from "../../islands/DatePicker.tsx";
 import { Nav } from "../../components/Nav.tsx";
 

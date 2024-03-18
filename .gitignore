@@ -9,3 +9,5 @@
 _fresh/
 
 node_modules/
+
+scrapRun.ts

@@ -1,12 +1,6 @@
 import { HandlerContext, Handlers, PageProps } from "$fresh/server.ts";
 import { addEventToTimesheet } from "../../../utils/dbUtils.ts";
-import {
-  addTimesheetToUser,
-  createNewTimesheet,
-  findTimesheetById,
-  findUserByEmail,
-} from "../../../utils/dbUtils.ts";
-
+import { findTimesheetById } from "../../../utils/dbUtils.ts";
 
 interface TimesheetEvent {
   start: string;

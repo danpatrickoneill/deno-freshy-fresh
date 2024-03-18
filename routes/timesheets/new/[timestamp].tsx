@@ -1,13 +1,6 @@
 import { Timesheet } from "../../../components/Timesheet.tsx";
-import { findTimesheetById, findUserByEmail } from "../../../utils/dbUtils.ts";
-import { EventInputForm } from "../../../components/EventInputForm.tsx";
 import { DatePicker } from "../../../islands/DatePicker.tsx";
-import {
-  getStandardizedMonthDayYearKeyFromSelectedDate,
-  selectedDate,
-} from "../../../utils/timeUtils.ts";
 import { Nav } from "../../../components/Nav.tsx";
-import { selectedDateString } from "../../../utils/timeUtils.ts";
 
 interface TimesheetEvent {
   start: string;

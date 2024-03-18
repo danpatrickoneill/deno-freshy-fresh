@@ -1,5 +1,8 @@
 import { OAuth2Client } from "npm:google-auth-library";
-import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
+import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";4
+import { signal } from "@preact/signals";
+
+export const userEmail = signal<string>;
 
 const env = await load();
 const client_id = env["GAUTH_CLIENT_ID"];

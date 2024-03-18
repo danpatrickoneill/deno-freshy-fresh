@@ -1,4 +1,3 @@
-import { Signal } from "@preact/signals";
 import { getStandardizedMonthDayYearKeyFromDate } from "../utils/timeUtils.ts";
 
 export function DatePicker(props: { dateString: string }) {

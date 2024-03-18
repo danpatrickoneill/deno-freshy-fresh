@@ -1,5 +1,6 @@
 import { MongoClient, ObjectId } from "npm:mongodb@6";
 import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
+import { userEmail } from "./userUtils.ts";
 
 interface TimesheetEvent {
   start: string;
@@ -46,7 +47,7 @@ export async function establishConnection(dbName: string) {
   }
 }
 
-export async function findUserByEmail(email: string) {
+export async function findUserByEmail() {
   try {
     await client.connect();
     const database = client.db("users");
@@ -54,7 +55,7 @@ export async function findUserByEmail(email: string) {
     // finds and inserts
     const users = database.collection("users");
     const user = await users.findOne(
-      { email },
+      { email: userEmail },
     );
     return user;
   } finally {

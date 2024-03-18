@@ -33,9 +33,9 @@ function formatColumnName(string: string) {
 export const handler: Handlers = {
   async POST(req: Request, ctx: HandlerContext) {
     // Gotta refactor mongo connection into util that I can assign to db here
-    const user = await findUserByEmail("test@test.com");
+    const user = await findUserByEmail();
     const dateString = ctx.params.dateString;
-    console.log(ctx.params, dateString)
+    console.log(ctx.params, dateString);
     const data = await req.formData();
     console.log(40, data);
     const newEvent = {
