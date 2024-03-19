@@ -10,4 +10,12 @@ import { start } from "$fresh/server.ts";
 import manifest from "./fresh.gen.ts";
 import config from "./fresh.config.ts";
 
+if (!Deno.env.get("BASE_URL")) {
+  Deno.env.set("BASE_URL", "https://danoneill.online");
+}
+console.log(
+  "STARTING MAIN ENVIRONMENT. BASE_URL IS: ",
+  Deno.env.get("BASE_URL"),
+);
+
 await start(manifest, config);
