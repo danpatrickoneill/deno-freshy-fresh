@@ -49,7 +49,7 @@ export const handler: Handlers = {
     //       console.log("No files found.");
     //     }
     //   }
-
-    return Response.redirect("http://localhost:8000");
+    const BASE_URL = Deno.env.get("BASE_URL");
+    return Response.redirect(BASE_URL || "https://danoneill.online");
   },
 };
