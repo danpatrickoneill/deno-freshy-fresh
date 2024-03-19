@@ -14,11 +14,9 @@ const password = Deno.env.get("PASSWORD");
 const uri =
   `mongodb+srv://${username}:${password}@dpo.hlrbfsz.mongodb.net/?retryWrites=true&w=majority&appName=DPO`;
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri);
-
 export async function findUserByEmail() {
   try {
+    const client = new MongoClient(uri);
     await client.connect();
     const database = client.db("users");
 
@@ -35,6 +33,8 @@ export async function findUserByEmail() {
 export async function findTimesheetById(timesheetId: string) {
   if (timesheetId && timesheetId !== "undefined") {
     try {
+      const client = new MongoClient(uri);
+
       await client.connect();
       const database = client.db("timesheets");
 
@@ -63,6 +63,8 @@ export async function findTimesheetForUser(dateString: string) {
       }
       console.log(77, dateString);
 
+      const client = new MongoClient(uri);
+
       await client.connect();
       const database = client.db("users");
       console.log(81, dateString);
@@ -90,6 +92,7 @@ export async function createNewTimesheet(
   dateString: string,
 ) {
   try {
+    const client = new MongoClient(uri);
     await client.connect();
     const database = client.db("timesheets");
 
@@ -108,6 +111,7 @@ export async function addTimesheetToUser(
   dateString: string,
 ) {
   try {
+    const client = new MongoClient(uri);
     await client.connect();
     const database = client.db("users");
 
@@ -132,6 +136,7 @@ export async function addEventToTimesheet(
   timesheetEvent: TimesheetEvent,
 ) {
   try {
+    const client = new MongoClient(uri);
     await client.connect();
     const database = client.db("timesheets");
 
