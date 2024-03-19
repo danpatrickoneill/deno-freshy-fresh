@@ -1,8 +1,6 @@
 import { userEmail } from "../utils/userUtils.ts";
 
 export function Nav(props: object) {
-  console.log(userEmail.value);
-
   const isLoggedIn = userEmail?.value?.length;
   const fetchLogin = () => {
     const url = "/api/user/login";
@@ -19,7 +17,7 @@ export function Nav(props: object) {
           {isLoggedIn
             ? <p>{`Logged in as ${userEmail.value}`}</p>
             : <a href="/api/user/login">Log In</a>}
-          {isLoggedIn ? null : <a href="/api/user/logout">Log Out</a>}
+          {isLoggedIn ? <a href="/api/user/logout">Log Out</a> : null}
           <a href="/timesheets/today">Timesheets</a>
         </div>
       </body>

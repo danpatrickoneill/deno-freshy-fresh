@@ -4,7 +4,7 @@ import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
 import url from "node:url";
 
 import { verifyUserToken } from "../../../utils/userUtils.ts";
-import { userEmail } from "../../../utils/userUtils.ts";
+import { setUserEmail } from "../../../utils/userUtils.ts";
 //  User has a timesheet dict with dateString format keys and timesheet IDs; then handle lookup
 //  Can cache ID permanently and events refreshed on demand
 export const handler: Handlers = {
@@ -47,7 +47,7 @@ export const handler: Handlers = {
     const userResponse = await people.people.get(options);
     console.log("55, USER: ", userResponse);
     if (userResponse.statusText === "OK") {
-      userEmail.value = userResponse.data.emailAddresses[0].value;
+        setUserEmail(userResponse.data.emailAddresses[0].value);
     }
     // , (err1, res1?) => {
     //     if (err1) return console.log("The API returned an error: " + err1);

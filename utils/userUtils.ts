@@ -25,6 +25,10 @@ export function verifyUserToken(idToken: string) {
   verify().catch(console.error);
 }
 
+export function setUserEmail(email: string) {
+  userEmail.value = email;
+}
+
 export function logOut() {
   userEmail.value = "";
 }
