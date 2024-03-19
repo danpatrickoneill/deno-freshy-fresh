@@ -30,7 +30,7 @@ export async function findUserByEmail() {
   } catch (e) {
     console.log(e);
   } finally {
-    await client.close();
+    // await client.close();
   }
 }
 
@@ -52,7 +52,7 @@ export async function findTimesheetById(timesheetId: string) {
     } catch (e) {
       console.log(e);
     } finally {
-      await client.close();
+      // await client.close();
     }
   }
 }
@@ -75,7 +75,7 @@ export async function findTimesheetForUser(dateString: string) {
     } catch (e) {
       console.log(e);
     } finally {
-      await client.close();
+      // await client.close();
     }
   }
 }
@@ -96,7 +96,7 @@ export async function createNewTimesheet(
   } catch (e) {
     console.log(e);
   } finally {
-    await client.close();
+    // await client.close();
   }
 }
 
@@ -122,7 +122,7 @@ export async function addTimesheetToUser(
   } catch (e) {
     console.log(e);
   } finally {
-    await client.close();
+    // await client.close();
   }
 }
 
@@ -149,6 +149,6 @@ export async function addEventToTimesheet(
   } catch (e) {
     console.log(e);
   } finally {
-    await client.close();
+    // await client.close();
   }
 }
