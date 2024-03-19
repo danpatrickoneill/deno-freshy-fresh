@@ -1,5 +1,5 @@
 import { OAuth2Client } from "npm:google-auth-library";
-import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";4
+import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
 import { signal } from "@preact/signals";
 
 export const userEmail = signal<string>;
@@ -23,4 +23,8 @@ export function verifyUserToken(idToken: string) {
     // const domain = payload['hd'];
   }
   verify().catch(console.error);
+}
+
+export function logOut() {
+  userEmail.value = "";
 }
