@@ -7,9 +7,6 @@ import { setUserEmail } from "../../../utils/userUtils.ts";
 //  Can cache ID permanently and events refreshed on demand
 export const handler: Handlers = {
   async GET(req: Request, ctx: HandlerContext) {
-    console.log("HEY! AT LOGIN HANDLER", ctx);
-    console.log(req, req.url);
-
     const BASE_URL = Deno.env.get("BASE_URL");
     const client_id = Deno.env.get("GAUTH_CLIENT_ID");
     const client_secret = Deno.env.get("GAUTH_CLIENT_SECRET");
@@ -35,22 +32,10 @@ export const handler: Handlers = {
     };
     const people = google.people("v1");
     const userResponse = await people.people.get(options);
-    console.log("55, USER: ", userResponse);
     if (userResponse.statusText === "OK") {
       setUserEmail(userResponse.data.emailAddresses[0].value);
     }
-    // , (err1, res1?) => {
-    //     if (err1) return console.log("The API returned an error: " + err1);
-    //     const files = res1?.data.files;
-    //     if (files?.length) {
-    //       console.log("Files:");
-    //       files.map((file) => {
-    //         console.log(`${file.name} (${file.id})`);
-    //       });
-    //     } else {
-    //       console.log("No files found.");
-    //     }
-    //   }
+ 
     return Response.redirect(BASE_URL || "https://danoneill.online");
   },
 };
