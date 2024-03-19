@@ -7,8 +7,6 @@ import { logOut } from "../../../utils/userUtils.ts";
 export const handler: Handlers = {
   async GET(req: Request, ctx: HandlerContext) {
     logOut();
-    console.log(BASE_URL);
-
     return Response.redirect(BASE_URL);
   },
 };

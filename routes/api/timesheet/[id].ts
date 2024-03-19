@@ -26,7 +26,6 @@ function formatColumnName(string: string) {
 //  Can cache ID permanently and events refreshed on demand
 export const handler: Handlers = {
   async GET(req: Request, ctx: HandlerContext) {
-    console.log(38, ctx.params);
     const timesheetId = ctx.params.id;
     const timesheet = await findTimesheetById(timesheetId);
 

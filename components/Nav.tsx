@@ -2,14 +2,7 @@ import { userEmail } from "../utils/userUtils.ts";
 
 export function Nav(props: object) {
   const isLoggedIn = userEmail?.value?.length;
-  const fetchLogin = () => {
-    const url = "/api/user/login";
-    console.log(url);
-    // const res = await fetch(url, { method: "POST" });
-    // console.log(30, res);
-    // globalThis.location.assign(res.url);
-    // return res;
-  };
+
   return (
     <html>
       <body>

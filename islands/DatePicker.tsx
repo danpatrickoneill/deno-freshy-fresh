@@ -3,21 +3,16 @@ import { getStandardizedMonthDayYearKeyFromDate } from "../utils/timeUtils.ts";
 export function DatePicker(props: { dateString: string }) {
   let { dateString } = props;
   const incrementDate = (numberOfDays: number) => {
-    console.log(12, dateString);
     const date = new Date(`${dateString} 00:00:00`);
-    console.log(date, date.getDate(), numberOfDays);
     const x = date.getDate() + numberOfDays;
     date.setDate(x);
-    console.log(date, dateString);
     const target = getStandardizedMonthDayYearKeyFromDate(date);
     goToNextDay(target);
   };
   const goToNextDay = async (timestamp: string) => {
     try {
       const url = `/api/user/${timestamp}`;
-      console.log(url);
       const res = await fetch(url, { method: "POST" });
-      console.log(30, res);
       globalThis.location.assign(res.url);
       return res;
     } catch (e) {

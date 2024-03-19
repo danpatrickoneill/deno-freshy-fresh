@@ -10,9 +10,6 @@ interface TimesheetEvent {
 }
 
 export default async function TimesheetPage(req: any, ctx: any) {
-  console.log("rendering timesheet/new/[timestamp]]");
-  let locked = false;
-  console.log(22, ctx.params);
   const { timestamp } = ctx.params;
   return (
     <div class="px-4 py-8 mx-auto my-8">

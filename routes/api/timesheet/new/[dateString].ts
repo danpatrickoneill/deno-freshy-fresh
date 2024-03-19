@@ -35,9 +35,7 @@ export const handler: Handlers = {
     // Gotta refactor mongo connection into util that I can assign to db here
     const user = await findUserByEmail();
     const dateString = ctx.params.dateString;
-    console.log(ctx.params, dateString);
     const data = await req.formData();
-    console.log(40, data);
     const newEvent = {
       start: data.get("start")?.toString(),
       end: data.get("end")?.toString(),

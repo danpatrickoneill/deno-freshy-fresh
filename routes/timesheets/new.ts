@@ -29,11 +29,9 @@ function formatColumnName(string: string) {
   return string;
 }
 
-//  User has a timesheet dict with dateString format keys and timesheet IDs; then handle lookup
-//  Can cache ID permanently and events refreshed on demand
+// We'll be going to new/date and id/date
 export const handler: Handlers = {
   async GET(req: Request, ctx: HandlerContext) {
-    console.log(38, ctx.params);
     const timestamp = getStandardizedMonthDayYearKeyFromDate(new Date());
     const url = `http:localhost:8000/api/user/${timestamp}`;
 

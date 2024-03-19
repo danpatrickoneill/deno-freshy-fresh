@@ -17,30 +17,11 @@ const uri =
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri);
 
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!",
-    );
-  } catch (e) {
-    console.log(e);
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-// run().catch(console.dir);
-
 export async function findUserByEmail() {
   try {
     await client.connect();
     const database = client.db("users");
-    // Specifying a Schema is always optional, but it enables type hinting on
-    // finds and inserts
+
     const users = database.collection("users");
     const user = await users.findOne(
       { email: userEmail },
@@ -54,21 +35,18 @@ export async function findUserByEmail() {
 }
 
 export async function findTimesheetById(timesheetId: string) {
-  console.log(67, timesheetId);
   if (timesheetId && timesheetId !== "undefined") {
     try {
       await client.connect();
       const database = client.db("timesheets");
 
       const timesheets = database.collection("timesheets");
-      console.log(!!timesheets, timesheetId);
       const timesheetObjectId = new ObjectId(
         timesheetId.toString(),
       );
       const timesheet = await timesheets.findOne(
         { _id: timesheetObjectId },
       );
-      console.log(timesheet);
       return timesheet;
     } catch (e) {
       console.log(e);
@@ -79,7 +57,6 @@ export async function findTimesheetById(timesheetId: string) {
 }
 
 export async function findTimesheetForUser(timestamp: string) {
-  console.log(92, timestamp);
   if (timestamp) {
     try {
       await client.connect();
@@ -90,7 +67,6 @@ export async function findTimesheetForUser(timestamp: string) {
         { email: "test@test.com" },
       );
       if (user) {
-        console.log(user);
         return user.timesheets[timestamp];
       }
     } catch (e) {
@@ -108,16 +84,12 @@ export async function createNewTimesheet(
   try {
     await client.connect();
     const database = client.db("timesheets");
-    // Specifying a Schema is always optional, but it enables type hinting on
-    // finds and inserts
+
     const timesheets = database.collection("timesheets");
-    // console.log(id);
     const timesheetKey = dateString;
-    console.log(100, timesheetKey);
     const timesheet = await timesheets.insertOne(
       { events: [initialEvent], timesheetKey },
     );
-    // console.log(timesheet);
     return timesheet;
   } catch (e) {
     console.log(e);
@@ -132,22 +104,20 @@ export async function addTimesheetToUser(
 ) {
   try {
     const database = client.db("users");
-    // Specifying a Schema is always optional, but it enables type hinting on
-    // finds and inserts
+
     const users = database.collection("users");
 
     const timesheetKey = getStandardizedMonthDayYearKeyFromSelectedDate();
     const filter = { email: "test@test.com" };
     // update the value of the 'quantity' field to 5
     const key = "timesheets." + timesheetKey;
-    console.log(126, key);
     const updateDocument = {
       $set: {
         [key]: timesheetId,
       },
     };
     const res = await users.updateOne(filter, updateDocument);
-    console.log(res);
+    return res
   } catch (e) {
     console.log(e);
   } finally {
@@ -162,8 +132,7 @@ export async function addEventToTimesheet(
   try {
     await client.connect();
     const database = client.db("timesheets");
-    // Specifying a Schema is always optional, but it enables type hinting on
-    // finds and inserts
+
     const timesheets = database.collection("timesheets");
     const timesheetObjectId = new ObjectId(timesheetId.toString());
     const timesheet = await timesheets.findOne(
@@ -173,7 +142,6 @@ export async function addEventToTimesheet(
       timesheet.events.push(timesheetEvent);
       timesheet.save();
     }
-    // console.log(timesheet);
     return timesheet;
   } catch (e) {
     console.log(e);

@@ -5,9 +5,6 @@ import { google } from "npm:googleapis";
 //  Can cache ID permanently and events refreshed on demand
 export const handler: Handlers = {
   async GET(req: Request, ctx: HandlerContext) {
-    console.log("HEY! LOGGING IN!");
-    console.log(req, req.url);
-
     const status = await Deno.permissions.request({ name: "env" });
     if (status.state === "granted") {
       console.log("'env' permission is granted.");
@@ -46,7 +43,7 @@ export const handler: Handlers = {
       // Enable incremental authorization. Recommended as a best practice.
       include_granted_scopes: true,
     });
-    console.log(41, authorizationUrl);
+
     return Response.redirect(authorizationUrl);
   },
 };
