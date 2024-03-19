@@ -1,5 +1,4 @@
 import { MongoClient, ObjectId } from "npm:mongodb@6";
-import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
 import { userEmail } from "./userUtils.ts";
 
 interface TimesheetEvent {
@@ -9,7 +8,6 @@ interface TimesheetEvent {
   activity: string;
 }
 
-const env = await load();
 const username = Deno.env.get("MONGO_USERNAME");
 const password = Deno.env.get("PASSWORD");
 

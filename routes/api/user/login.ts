@@ -1,6 +1,5 @@
 import { HandlerContext, Handlers, PageProps } from "$fresh/server.ts";
 import { google } from "npm:googleapis";
-import { load } from "https://deno.land/std@0.219.0/dotenv/mod.ts";
 
 //  User has a timesheet dict with dateString format keys and timesheet IDs; then handle lookup
 //  Can cache ID permanently and events refreshed on demand
@@ -19,7 +18,7 @@ export const handler: Handlers = {
     const client_id = Deno.env.get("GAUTH_CLIENT_ID");
     const client_secret = Deno.env.get("GAUTH_CLIENT_SECRET");
     const redirect_url = "http://localhost:8000/api/user/handleLogin";
-    console.log(22, client_id)
+    console.log(22, client_id);
     /**
      * To use OAuth2 authentication, we need access to a CLIENT_ID, CLIENT_SECRET, AND REDIRECT_URI
      * from the client_secret.json file. To get these credentials for your application, visit
