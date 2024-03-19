@@ -1,10 +1,4 @@
-import { HandlerContext, Handlers, PageProps } from "$fresh/server.ts";
-import {
-  addTimesheetToUser,
-  createNewTimesheet,
-  findTimesheetById,
-  findTimesheetForUser,
-} from "../../utils/dbUtils.ts";
+import { HandlerContext, Handlers } from "$fresh/server.ts";
 import {
   getStandardizedMonthDayYearKeyFromDate,
 } from "../../utils/timeUtils.ts";
@@ -23,10 +17,6 @@ interface Timesheet {
 interface TimesheetProps {
   columns: string[];
   events: TimesheetEvent[];
-}
-
-function formatColumnName(string: string) {
-  return string;
 }
 
 // We'll be going to new/date and id/date

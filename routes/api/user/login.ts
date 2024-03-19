@@ -1,4 +1,4 @@
-import { HandlerContext, Handlers, PageProps } from "$fresh/server.ts";
+import { HandlerContext, Handlers } from "$fresh/server.ts";
 import { google } from "npm:googleapis";
 
 //  User has a timesheet dict with dateString format keys and timesheet IDs; then handle lookup

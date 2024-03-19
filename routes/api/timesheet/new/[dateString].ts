@@ -1,4 +1,4 @@
-import { HandlerContext, Handlers, PageProps } from "$fresh/server.ts";
+import { HandlerContext, Handlers } from "$fresh/server.ts";
 import { addEventToTimesheet } from "../../../../utils/dbUtils.ts";
 import {
   addTimesheetToUser,
@@ -50,7 +50,7 @@ export const handler: Handlers = {
       });
       return new Response(responseBody);
     }
-    addTimesheetToUser(res.insertedId, user);
+    addTimesheetToUser(res.insertedId, dateString);
     const url = `http:localhost:8000/timesheets/${res.insertedId}`;
     return Response.redirect(url);
   },

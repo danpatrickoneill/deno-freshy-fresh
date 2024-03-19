@@ -1,4 +1,4 @@
-import { HandlerContext, Handlers, PageProps } from "$fresh/server.ts";
+import { HandlerContext, Handlers } from "$fresh/server.ts";
 import { findTimesheetForUser } from "../../../utils/dbUtils.ts";
 interface TimesheetEvent {
   start: string;

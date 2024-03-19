@@ -64,7 +64,7 @@ export async function findTimesheetForUser(timestamp: string) {
 
       const users = database.collection("users");
       const user = await users.findOne(
-        { email: "test@test.com" },
+        { email: userEmail.value },
       );
       if (user) {
         return user.timesheets[timestamp];
@@ -100,15 +100,14 @@ export async function createNewTimesheet(
 
 export async function addTimesheetToUser(
   timesheetId: ObjectId,
-  userEmail: any,
+  timesheetKey: string,
 ) {
   try {
     const database = client.db("users");
 
     const users = database.collection("users");
 
-    const timesheetKey = getStandardizedMonthDayYearKeyFromSelectedDate();
-    const filter = { email: "test@test.com" };
+    const filter = { email: userEmail.value };
     // update the value of the 'quantity' field to 5
     const key = "timesheets." + timesheetKey;
     const updateDocument = {
