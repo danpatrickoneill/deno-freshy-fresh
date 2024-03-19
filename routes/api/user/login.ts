@@ -5,7 +5,7 @@ import { google } from "npm:googleapis";
 //  Can cache ID permanently and events refreshed on demand
 export const handler: Handlers = {
   async GET(req: Request, ctx: HandlerContext) {
-    console.log("HEY!");
+    console.log("HEY! LOGGING IN!");
     console.log(req, req.url);
 
     const status = await Deno.permissions.request({ name: "env" });
