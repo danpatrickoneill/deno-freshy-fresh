@@ -28,24 +28,14 @@ async function run() {
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!",
     );
+  } catch (e) {
+    console.log(e);
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
   }
 }
 // run().catch(console.dir);
-
-export async function establishConnection(dbName: string) {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    return client.db(dbName);
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
 
 export async function findUserByEmail() {
   try {
@@ -58,6 +48,8 @@ export async function findUserByEmail() {
       { email: userEmail },
     );
     return user;
+  } catch (e) {
+    console.log(e);
   } finally {
     await client.close();
   }
@@ -80,6 +72,8 @@ export async function findTimesheetById(timesheetId: string) {
       );
       console.log(timesheet);
       return timesheet;
+    } catch (e) {
+      console.log(e);
     } finally {
       await client.close();
     }
@@ -101,6 +95,8 @@ export async function findTimesheetForUser(timestamp: string) {
         console.log(user);
         return user.timesheets[timestamp];
       }
+    } catch (e) {
+      console.log(e);
     } finally {
       await client.close();
     }
@@ -125,6 +121,8 @@ export async function createNewTimesheet(
     );
     // console.log(timesheet);
     return timesheet;
+  } catch (e) {
+    console.log(e);
   } finally {
     await client.close();
   }
@@ -179,6 +177,8 @@ export async function addEventToTimesheet(
     }
     // console.log(timesheet);
     return timesheet;
+  } catch (e) {
+    console.log(e);
   } finally {
     await client.close();
   }
