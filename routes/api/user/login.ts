@@ -15,10 +15,10 @@ export const handler: Handlers = {
       console.log("'env' permission is denied.");
     }
 
+    const BASE_URL = Deno.env.get("BASE_URL");
     const client_id = Deno.env.get("GAUTH_CLIENT_ID");
     const client_secret = Deno.env.get("GAUTH_CLIENT_SECRET");
-    const redirect_url = "http://localhost:8000/api/user/handleLogin";
-    console.log(22, client_id);
+    const redirect_url = `${BASE_URL}/api/user/handleLogin`;
     /**
      * To use OAuth2 authentication, we need access to a CLIENT_ID, CLIENT_SECRET, AND REDIRECT_URI
      * from the client_secret.json file. To get these credentials for your application, visit

@@ -10,9 +10,11 @@ export const handler: Handlers = {
     console.log("HEY! AT LOGIN HANDLER", ctx);
     console.log(req, req.url);
 
+    const BASE_URL = Deno.env.get("BASE_URL");
     const client_id = Deno.env.get("GAUTH_CLIENT_ID");
     const client_secret = Deno.env.get("GAUTH_CLIENT_SECRET");
-    const redirect_url = "http://localhost:8000/api/user/handleLogin";
+    const redirect_url = `${BASE_URL}/api/user/handleLogin`;
+
     const oauth2Client = new google.auth.OAuth2(
       client_id,
       client_secret,
@@ -49,7 +51,6 @@ export const handler: Handlers = {
     //       console.log("No files found.");
     //     }
     //   }
-    const BASE_URL = Deno.env.get("BASE_URL");
     return Response.redirect(BASE_URL || "https://danoneill.online");
   },
 };
