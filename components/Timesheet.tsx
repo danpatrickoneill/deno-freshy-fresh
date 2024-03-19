@@ -22,11 +22,6 @@ function formatColumnName(string: string) {
 export function Timesheet(props: TimesheetProps) {
   const { events, dateString } = props;
 
-  interface Data {
-    results: string[];
-    query: string;
-  }
-
   return (
     <>
       {/* Need to figure out all this grid stuff! */}

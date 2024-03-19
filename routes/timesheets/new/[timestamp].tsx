@@ -10,15 +10,15 @@ interface TimesheetEvent {
 }
 
 export default async function TimesheetPage(req: any, ctx: any) {
-  const { timestamp } = ctx.params;
+  const { dateString } = ctx.params;
   return (
     <div class="px-4 py-8 mx-auto my-8">
       <div class="max-w-screen-md mx-auto grid grid-cols-5 grid-rows-5 app-container">
         <Nav />
-        <DatePicker dateString={timestamp} />
+        <DatePicker dateString={dateString} />
         <Timesheet
           columns={["x"]}
-          dateString={timestamp}
+          dateString={dateString}
         />
       </div>
     </div>

@@ -9,9 +9,9 @@ export function DatePicker(props: { dateString: string }) {
     const target = getStandardizedMonthDayYearKeyFromDate(date);
     goToNextDay(target);
   };
-  const goToNextDay = async (timestamp: string) => {
+  const goToNextDay = async (dateString: string) => {
     try {
-      const url = `/api/user/${timestamp}`;
+      const url = `/api/user/${dateString}`;
       const res = await fetch(url, { method: "POST" });
       globalThis.location.assign(res.url);
       return res;

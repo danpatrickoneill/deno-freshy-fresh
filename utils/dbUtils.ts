@@ -56,8 +56,8 @@ export async function findTimesheetById(timesheetId: string) {
   }
 }
 
-export async function findTimesheetForUser(timestamp: string) {
-  if (timestamp) {
+export async function findTimesheetForUser(dateString: string) {
+  if (dateString) {
     try {
       await client.connect();
       const database = client.db("users");
@@ -67,7 +67,7 @@ export async function findTimesheetForUser(timestamp: string) {
         { email: userEmail.value },
       );
       if (user) {
-        return user.timesheets[timestamp];
+        return user.timesheets[dateString];
       }
     } catch (e) {
       console.log(e);

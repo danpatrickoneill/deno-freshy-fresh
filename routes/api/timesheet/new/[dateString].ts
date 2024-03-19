@@ -1,9 +1,7 @@
 import { HandlerContext, Handlers } from "$fresh/server.ts";
-import { addEventToTimesheet } from "../../../../utils/dbUtils.ts";
 import {
   addTimesheetToUser,
   createNewTimesheet,
-  findTimesheetById,
   findUserByEmail,
 } from "../../../../utils/dbUtils.ts";
 
@@ -24,9 +22,7 @@ interface TimesheetProps {
   events: TimesheetEvent[];
 }
 
-function formatColumnName(string: string) {
-  return string;
-}
+const BASE_URL = Deno.env.get("BASE_URL");
 
 //  User has a timesheet dict with dateString format keys and timesheet IDs; then handle lookup
 //  Can cache ID permanently and events refreshed on demand
@@ -51,7 +47,7 @@ export const handler: Handlers = {
       return new Response(responseBody);
     }
     addTimesheetToUser(res.insertedId, dateString);
-    const url = `http:localhost:8000/timesheets/${res.insertedId}`;
+    const url = `${BASE_URL}/timesheets/${res.insertedId}/${dateString}`;
     return Response.redirect(url);
   },
 };

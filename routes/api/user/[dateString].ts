@@ -7,17 +7,19 @@ interface TimesheetEvent {
   activity: string;
 }
 
-//  User has a timesheet dict with dateString format keys and timesheet IDs; then handle lookup
 //  Can cache ID permanently and events refreshed on demand
+const BASE_URL = Deno.env.get("BASE_URL");
+
 export const handler: Handlers = {
   async POST(req: Request, ctx: HandlerContext) {
-    const { timestamp } = ctx.params;
-    const timesheetId = await findTimesheetForUser(timestamp);
+    const { dateString } = ctx.params;
+    const timesheetId = await findTimesheetForUser(dateString);
     if (!timesheetId) {
-      const url = `http:localhost:8000/timesheets/new/${timestamp}`;
+      const url = `${BASE_URL}/timesheets/new/${dateString}`;
       return Response.redirect(url);
     }
-    const url = `http:localhost:8000/timesheets/${timesheetId.toString()}`;
+    const url =
+      `${BASE_URL}/timesheets/${timesheetId.toString()}/${dateString}`;
     return Response.redirect(url);
   },
 };
