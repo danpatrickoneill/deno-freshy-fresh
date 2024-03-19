@@ -74,14 +74,21 @@ export async function findTimesheetById(timesheetId: string) {
 export async function findTimesheetForUser(dateString: string) {
   if (dateString) {
     try {
+      if (!userEmail.value) {
+        throw new Error("User is not logged in. Don't do this.");
+      }
+      console.log(77, dateString);
+
       await client.connect();
       const database = client.db("users");
+      console.log(81, dateString);
 
       const users = database.collection("users");
       const user = await users.findOne(
         { email: userEmail.value },
       );
       console.log(userEmail.value);
+      console.log(88, user);
 
       if (user) {
         return user.timesheets[dateString];
