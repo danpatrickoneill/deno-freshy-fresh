@@ -11,10 +11,11 @@ import * as $5 from "./routes/api/user/[timestamp].ts";
 import * as $6 from "./routes/api/user/handleLogin.ts";
 import * as $7 from "./routes/api/user/login.ts";
 import * as $8 from "./routes/api/user/logout.ts";
-import * as $9 from "./routes/index.tsx";
-import * as $10 from "./routes/timesheets/[id].tsx";
-import * as $11 from "./routes/timesheets/new.ts";
-import * as $12 from "./routes/timesheets/new/[timestamp].tsx";
+import * as $9 from "./routes/blog/index.tsx";
+import * as $10 from "./routes/index.tsx";
+import * as $11 from "./routes/timesheets/[id].tsx";
+import * as $12 from "./routes/timesheets/new.ts";
+import * as $13 from "./routes/timesheets/new/[timestamp].tsx";
 import * as $$0 from "./islands/DatePicker.tsx";
 import * as $$1 from "./islands/Sticky.tsx";
 
@@ -29,10 +30,11 @@ const manifest = {
     "./routes/api/user/handleLogin.ts": $6,
     "./routes/api/user/login.ts": $7,
     "./routes/api/user/logout.ts": $8,
-    "./routes/index.tsx": $9,
-    "./routes/timesheets/[id].tsx": $10,
-    "./routes/timesheets/new.ts": $11,
-    "./routes/timesheets/new/[timestamp].tsx": $12,
+    "./routes/blog/index.tsx": $9,
+    "./routes/index.tsx": $10,
+    "./routes/timesheets/[id].tsx": $11,
+    "./routes/timesheets/new.ts": $12,
+    "./routes/timesheets/new/[timestamp].tsx": $13,
   },
   islands: {
     "./islands/DatePicker.tsx": $$0,
