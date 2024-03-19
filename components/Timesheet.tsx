@@ -24,10 +24,9 @@ export function Timesheet(props: TimesheetProps) {
 
   return (
     <>
-      {/* Need to figure out all this grid stuff! */}
-      <div class="tableContainer col-span-4 row-span-4 ">
+      <div class="tableContainer ">
         <table
-          class="col-span-4 row-span-4 grid auto-cols-min auto-rows-min"
+          class=""
           aria-label="a table of events with start and end times along with other data"
         >
           <thead>

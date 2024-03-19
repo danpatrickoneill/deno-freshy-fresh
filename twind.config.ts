@@ -8,10 +8,10 @@ export default {
     theme: {
       extend: {
         colors: {
-          "primary": [colors.conflowerBlue],
-          "secondary": [colors.vanilla],
-          "accent-dark": [colors.englishViolet],
-          "accent-light": [colors.periwinkle],
+          "primary": colors.conflowerBlue,
+          "secondary": colors.vanilla,
+          "accent-dark": colors.englishViolet,
+          "accent-light": colors.periwinkle,
           "conflowerBlue": "#788BFF",
           "englishViolet": "#49475B",
           "jordyBlue": "#9BB1FF",

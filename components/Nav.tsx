@@ -16,7 +16,7 @@ export function Nav(props: object) {
             : <a href="/api/user/login">Log In</a>}
           {isLoggedIn ? <a href="/api/user/logout">Log Out</a> : null}
           <a href={`/api/user/${dateString}`}>Timesheets</a>
-          <a href="/blog">Blog</a>
+          <a class="text-primary" href="/blog">Blog</a>
         </div>
       </body>
     </html>

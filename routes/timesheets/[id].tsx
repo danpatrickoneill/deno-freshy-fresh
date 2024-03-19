@@ -55,7 +55,7 @@ export default async function TimesheetPage(req: any, ctx: any) {
   
   return (
     <div class="px-4 py-8 mx-auto my-8">
-      <div class="max-w-screen-md mx-auto grid grid-cols-5 grid-rows-5 app-container">
+      <div class="max-w-screen-md mx-auto app-container">
         <Nav />
         <DatePicker dateString={dateString} />
         <Timesheet

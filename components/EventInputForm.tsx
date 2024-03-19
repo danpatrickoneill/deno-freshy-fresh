@@ -29,7 +29,7 @@ export function EventInputForm(props: NewTimesheetProps) {
         name="activity"
         label="Activity"
       />
-      <button>Start new Timesheet</button>
+      <button class="bg-primary hover:bg-accent-light text-white font-bold py-2 px-4 rounded-full">Add event to sheet</button>
     </form>
   );
 }
