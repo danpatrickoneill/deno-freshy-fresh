@@ -1,12 +1,12 @@
 interface NewTimesheetProps {
-  dateString: string;
+  formAction: string;
 }
 
 export function EventInputForm(props: NewTimesheetProps) {
-  const { dateString } = props;
+  const { formAction } = props;
   return (
     <form
-      action={`/api/timesheet/new/${dateString}`}
+      action={formAction}
       method="POST"
     >
       <input

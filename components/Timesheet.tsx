@@ -51,7 +51,6 @@ export function Timesheet(props: TimesheetProps) {
           <tfoot>
           </tfoot>
         </table>
-        {/* Form can post to existing timesheet ID or create new */}
       </div>
     </>
   );

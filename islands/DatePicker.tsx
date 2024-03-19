@@ -12,7 +12,7 @@ export function DatePicker(props: { dateString: string }) {
   const goToNextDay = async (dateString: string) => {
     try {
       const url = `/api/user/${dateString}`;
-      const res = await fetch(url, { method: "POST" });
+      const res = await fetch(url);
       globalThis.location.assign(res.url);
       return res;
     } catch (e) {

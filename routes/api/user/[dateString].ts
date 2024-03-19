@@ -11,9 +11,10 @@ interface TimesheetEvent {
 const BASE_URL = Deno.env.get("BASE_URL");
 
 export const handler: Handlers = {
-  async POST(req: Request, ctx: HandlerContext) {
+  async GET(req: Request, ctx: HandlerContext) {
     const { dateString } = ctx.params;
     const timesheetId = await findTimesheetForUser(dateString);
+    console.log(17, timesheetId, ctx.params)
     if (!timesheetId) {
       const url = `${BASE_URL}/timesheets/new/${dateString}`;
       return Response.redirect(url);

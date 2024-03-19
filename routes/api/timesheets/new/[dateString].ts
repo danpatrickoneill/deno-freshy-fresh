@@ -28,8 +28,6 @@ const BASE_URL = Deno.env.get("BASE_URL");
 //  Can cache ID permanently and events refreshed on demand
 export const handler: Handlers = {
   async POST(req: Request, ctx: HandlerContext) {
-    // Gotta refactor mongo connection into util that I can assign to db here
-    const user = await findUserByEmail();
     const dateString = ctx.params.dateString;
     const data = await req.formData();
     const newEvent = {

@@ -5,8 +5,8 @@
 import * as $0 from "./routes/_404.tsx";
 import * as $1 from "./routes/_app.tsx";
 import * as $2 from "./routes/api/event.ts";
-import * as $3 from "./routes/api/timesheet/[id].ts";
-import * as $4 from "./routes/api/timesheet/new/[dateString].ts";
+import * as $3 from "./routes/api/timesheets/[id].ts";
+import * as $4 from "./routes/api/timesheets/new/[dateString].ts";
 import * as $5 from "./routes/api/user/[dateString].ts";
 import * as $6 from "./routes/api/user/handleLogin.ts";
 import * as $7 from "./routes/api/user/login.ts";
@@ -22,8 +22,8 @@ const manifest = {
     "./routes/_404.tsx": $0,
     "./routes/_app.tsx": $1,
     "./routes/api/event.ts": $2,
-    "./routes/api/timesheet/[id].ts": $3,
-    "./routes/api/timesheet/new/[dateString].ts": $4,
+    "./routes/api/timesheets/[id].ts": $3,
+    "./routes/api/timesheets/new/[dateString].ts": $4,
     "./routes/api/user/[dateString].ts": $5,
     "./routes/api/user/handleLogin.ts": $6,
     "./routes/api/user/login.ts": $7,

@@ -47,6 +47,7 @@ export async function findTimesheetById(timesheetId: string) {
       const timesheet = await timesheets.findOne(
         { _id: timesheetObjectId },
       );
+
       return timesheet;
     } catch (e) {
       console.log(e);
@@ -66,6 +67,8 @@ export async function findTimesheetForUser(dateString: string) {
       const user = await users.findOne(
         { email: userEmail.value },
       );
+      console.log(userEmail.value);
+
       if (user) {
         return user.timesheets[dateString];
       }
@@ -108,7 +111,6 @@ export async function addTimesheetToUser(
     const users = database.collection("users");
 
     const filter = { email: userEmail.value };
-    // update the value of the 'quantity' field to 5
     const key = "timesheets." + dateString;
     const updateDocument = {
       $set: {
@@ -134,14 +136,16 @@ export async function addEventToTimesheet(
 
     const timesheets = database.collection("timesheets");
     const timesheetObjectId = new ObjectId(timesheetId.toString());
-    const timesheet = await timesheets.findOne(
-      { _id: timesheetObjectId },
-    );
-    if (timesheet) {
-      timesheet.events.push(timesheetEvent);
-      timesheet.save();
-    }
-    return timesheet;
+    const filter = { _id: timesheetObjectId };
+    const updateDocument = {
+      $push: {
+        "events": timesheetEvent,
+      },
+    };
+    const res = await timesheets.updateOne(filter, updateDocument);
+    console.log(res);
+    console.log(149);
+    return res;
   } catch (e) {
     console.log(e);
   } finally {
