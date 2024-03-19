@@ -53,7 +53,9 @@ export const handler: Handlers = {
         message: "Timesheet does not exist.",
       });
     }
-    responseBody = JSON.stringify(timesheet);
-    return new Response(responseBody);
+    const BASE_URL = Deno.env.get("BASE_URL");
+
+    const url = `${BASE_URL}/timesheets/${timesheetId}/${dateString}`;
+    return Response.redirect(url);
   },
 };
