@@ -86,9 +86,8 @@ export async function createNewTimesheet(
     const database = client.db("timesheets");
 
     const timesheets = database.collection("timesheets");
-    const timesheetKey = dateString;
     const timesheet = await timesheets.insertOne(
-      { events: [initialEvent], timesheetKey },
+      { events: [initialEvent] },
     );
     return timesheet;
   } catch (e) {
@@ -100,23 +99,24 @@ export async function createNewTimesheet(
 
 export async function addTimesheetToUser(
   timesheetId: ObjectId,
-  timesheetKey: string,
+  dateString: string,
 ) {
   try {
+    await client.connect();
     const database = client.db("users");
 
     const users = database.collection("users");
 
     const filter = { email: userEmail.value };
     // update the value of the 'quantity' field to 5
-    const key = "timesheets." + timesheetKey;
+    const key = "timesheets." + dateString;
     const updateDocument = {
       $set: {
         [key]: timesheetId,
       },
     };
     const res = await users.updateOne(filter, updateDocument);
-    return res
+    return res;
   } catch (e) {
     console.log(e);
   } finally {

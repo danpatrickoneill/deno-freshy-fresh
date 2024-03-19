@@ -1,52 +1,35 @@
-export function EventInputForm(props: object) {
+interface NewTimesheetProps {
+  dateString: string;
+}
+
+export function EventInputForm(props: NewTimesheetProps) {
+  const { dateString } = props;
   return (
-    <div className="container">
-      Currently loaded timesheet: {null || "Today"}
-      <form>
-        <label>
-          Start time:
-          <input
-            type="time"
-            name="Start time"
-            label="Start time"
-          />
-        </label>
-        <label>
-          End time:
-          <input
-            type="time"
-            name="End time"
-          />
-        </label>
-        <label>
-          Case name:
-          <input
-            type="text"
-            name="Case name"
-          />
-        </label>
-        <label>
-          Activity:
-          <input
-            type="text"
-            name="Activity"
-          />
-        </label>
-        <label>
-          Email address:
-          <input
-            type="email"
-            name="Email"
-          />
-        </label>
-      </form>
-      <label>
-        Desired date: :
-        <input
-          type="date"
-          name="Desired date"
-        />
-      </label>
-    </div>
+    <form
+      action={`/api/timesheet/new/${dateString}`}
+      method="POST"
+    >
+      <input
+        type="time"
+        name="start"
+        label="Start time"
+      />
+      <input
+        type="time"
+        name="end"
+        label="End time"
+      />
+      <input
+        type="text"
+        name="name"
+        label="name"
+      />
+      <input
+        type="text"
+        name="activity"
+        label="Activity"
+      />
+      <button>Start new Timesheet</button>
+    </form>
   );
 }

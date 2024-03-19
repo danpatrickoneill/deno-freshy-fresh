@@ -49,51 +49,10 @@ export function Timesheet(props: TimesheetProps) {
             })}
           </tbody>
           <tfoot>
-            <tr>
-              <td>
-                <input
-                  type="time"
-                  name="start"
-                  label="Start time"
-                  form="newEvent"
-                />
-              </td>
-              <td>
-                <input
-                  type="time"
-                  name="end"
-                  label="End time"
-                  form="newEvent"
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  name="name"
-                  label="name"
-                  form="newEvent"
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  name="activity"
-                  label="Activity"
-                  form="newEvent"
-                />
-              </td>
-            </tr>
           </tfoot>
         </table>
         {/* Form can post to existing timesheet ID or create new */}
       </div>
-      <form
-        id="newEvent"
-        action={`/api/timesheet/new/${dateString}`}
-        method="POST"
-      >
-        <button>Start new Timesheet</button>
-      </form>
     </>
   );
 }
