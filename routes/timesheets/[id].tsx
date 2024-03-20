@@ -51,6 +51,9 @@ export default async function TimesheetPage(req: any, ctx: any) {
           events={timesheet?.events}
           dateString={dateString}
         />
+        <EventInputForm
+          formAction={formAction}
+        />
       </div>
     </div>
   );
