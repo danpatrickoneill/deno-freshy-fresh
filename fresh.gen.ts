@@ -2,41 +2,43 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
-import * as $0 from "./routes/_404.tsx";
-import * as $1 from "./routes/_app.tsx";
-import * as $2 from "./routes/api/event.ts";
-import * as $3 from "./routes/api/timesheets/[id].ts";
-import * as $4 from "./routes/api/timesheets/new/[dateString].ts";
-import * as $5 from "./routes/api/user/[dateString].ts";
-import * as $6 from "./routes/api/user/handleLogin.ts";
-import * as $7 from "./routes/api/user/login.ts";
-import * as $8 from "./routes/api/user/logout.ts";
-import * as $9 from "./routes/blog/index.tsx";
-import * as $10 from "./routes/index.tsx";
-import * as $11 from "./routes/timesheets/[id].tsx";
-import * as $$0 from "./islands/DatePicker.tsx";
-import * as $$1 from "./islands/Sticky.tsx";
+import * as $_404 from "./routes/_404.tsx";
+import * as $_app from "./routes/_app.tsx";
+import * as $api_event from "./routes/api/event.ts";
+import * as $api_timesheets_id_ from "./routes/api/timesheets/[id].ts";
+import * as $api_timesheets_new_dateString_ from "./routes/api/timesheets/new/[dateString].ts";
+import * as $api_user_dateString_ from "./routes/api/user/[dateString].ts";
+import * as $api_user_handleLogin from "./routes/api/user/handleLogin.ts";
+import * as $api_user_login from "./routes/api/user/login.ts";
+import * as $api_user_logout from "./routes/api/user/logout.ts";
+import * as $blog_index from "./routes/blog/index.tsx";
+import * as $index from "./routes/index.tsx";
+import * as $timesheets_id_ from "./routes/timesheets/[id].tsx";
+import * as $DatePicker from "./islands/DatePicker.tsx";
+import * as $Sticky from "./islands/Sticky.tsx";
+import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
-    "./routes/_404.tsx": $0,
-    "./routes/_app.tsx": $1,
-    "./routes/api/event.ts": $2,
-    "./routes/api/timesheets/[id].ts": $3,
-    "./routes/api/timesheets/new/[dateString].ts": $4,
-    "./routes/api/user/[dateString].ts": $5,
-    "./routes/api/user/handleLogin.ts": $6,
-    "./routes/api/user/login.ts": $7,
-    "./routes/api/user/logout.ts": $8,
-    "./routes/blog/index.tsx": $9,
-    "./routes/index.tsx": $10,
-    "./routes/timesheets/[id].tsx": $11,
+    "./routes/_404.tsx": $_404,
+    "./routes/_app.tsx": $_app,
+    "./routes/api/event.ts": $api_event,
+    "./routes/api/timesheets/[id].ts": $api_timesheets_id_,
+    "./routes/api/timesheets/new/[dateString].ts":
+      $api_timesheets_new_dateString_,
+    "./routes/api/user/[dateString].ts": $api_user_dateString_,
+    "./routes/api/user/handleLogin.ts": $api_user_handleLogin,
+    "./routes/api/user/login.ts": $api_user_login,
+    "./routes/api/user/logout.ts": $api_user_logout,
+    "./routes/blog/index.tsx": $blog_index,
+    "./routes/index.tsx": $index,
+    "./routes/timesheets/[id].tsx": $timesheets_id_,
   },
   islands: {
-    "./islands/DatePicker.tsx": $$0,
-    "./islands/Sticky.tsx": $$1,
+    "./islands/DatePicker.tsx": $DatePicker,
+    "./islands/Sticky.tsx": $Sticky,
   },
   baseUrl: import.meta.url,
-};
+} satisfies Manifest;
 
 export default manifest;
