@@ -1,4 +1,4 @@
-import { HandlerContext, Handlers, RouteConfig } from "$fresh/server.ts";
+import { Handlers, RouteConfig } from "$fresh/server.ts";
 import { addEventToTimesheet } from "../../../utils/dbUtils.ts";
 import { findTimesheetById } from "../../../utils/dbUtils.ts";
 
@@ -16,7 +16,7 @@ export const config: RouteConfig = {
 //  User has a timesheet dict with dateString format keys and timesheet IDs; then handle lookup
 //  Can cache ID permanently and events refreshed on demand
 export const handler: Handlers = {
-  async GET(req: Request, ctx: HandlerContext) {
+  async GET(req: Request, ctx) {
     const timesheetId = ctx.params.id;
     const dateString = ctx.params.dateString;
     console.log(22, ctx.params, timesheetId, dateString);
@@ -34,7 +34,7 @@ export const handler: Handlers = {
     responseBody = JSON.stringify(timesheet);
     return new Response(responseBody);
   },
-  async POST(req: Request, ctx: HandlerContext) {
+  async POST(req: Request, ctx) {
     const timesheetId = ctx.params.id;
     const dateString = ctx.params.dateString;
     console.log(40, ctx.params, timesheetId, dateString);
@@ -47,7 +47,6 @@ export const handler: Handlers = {
     };
     const timesheet = await addEventToTimesheet(timesheetId, newEvent);
 
-    let responseBody;
     if (!timesheet) {
       responseBody = JSON.stringify({
         message: "Timesheet does not exist.",

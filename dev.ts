@@ -7,5 +7,4 @@ console.log(
   "STARTING DEV ENVIRONMENT. BASE_URL IS: ",
   Deno.env.get("BASE_URL"),
 );
-
 await dev(import.meta.url, "./main.ts", config);
