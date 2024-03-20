@@ -18,9 +18,6 @@ export const config: RouteConfig = {
 export const handler: Handlers = {
   async GET(req: Request, ctx) {
     const timesheetId = ctx.params.id;
-    const dateString = ctx.params.dateString;
-    console.log(22, ctx.params, timesheetId, dateString);
-
     const timesheet = await findTimesheetById(timesheetId);
 
     let responseBody;
@@ -37,7 +34,7 @@ export const handler: Handlers = {
   async POST(req: Request, ctx) {
     const timesheetId = ctx.params.id;
     const dateString = ctx.params.dateString;
-    console.log(40, ctx.params, timesheetId, dateString);
+
     const data = await req.formData();
     const newEvent = {
       start: data.get("start")?.toString(),

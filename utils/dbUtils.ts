@@ -1,12 +1,5 @@
 import { MongoClient, ObjectId } from "npm:mongodb@6";
 import { userEmail } from "./userUtils.ts";
-import { getIP } from "https://deno.land/x/get_ip/mod.ts";
-
-const getMyIP = async () => {
-  console.log(`Your public IP is ${await getIP({ipv6: true})}`);
-}
-
-getMyIP();
 
 interface TimesheetEvent {
   start: string;
@@ -20,10 +13,10 @@ const password = Deno.env.get("PASSWORD");
 
 const uri =
   `mongodb+srv://${username}:${password}@dpo.hlrbfsz.mongodb.net/?retryWrites=true&w=majority&appName=DPO`;
+const client = new MongoClient(uri);
 
 export async function findUserByEmail() {
   try {
-    const client = new MongoClient(uri);
     await client.connect();
     const database = client.db("users");
 
@@ -40,8 +33,6 @@ export async function findUserByEmail() {
 export async function findTimesheetById(timesheetId: string) {
   if (timesheetId && timesheetId !== "undefined") {
     try {
-      const client = new MongoClient(uri);
-
       await client.connect();
       const database = client.db("timesheets");
 
@@ -68,20 +59,15 @@ export async function findTimesheetForUser(dateString: string) {
       if (!userEmail.value) {
         throw new Error("User is not logged in. Don't do this.");
       }
-      console.log(77, dateString);
-
-      const client = new MongoClient(uri);
 
       await client.connect();
       const database = client.db("users");
-      console.log(81, dateString);
 
       const users = database.collection("users");
       const user = await users.findOne(
         { email: userEmail.value },
       );
-      console.log(userEmail.value);
-      console.log(88, user);
+      console.log("EMAIL: ", userEmail.value);
 
       if (user) {
         return user.timesheets[dateString];
@@ -99,7 +85,6 @@ export async function createNewTimesheet(
   dateString: string,
 ) {
   try {
-    const client = new MongoClient(uri);
     await client.connect();
     const database = client.db("timesheets");
 
@@ -118,7 +103,6 @@ export async function addTimesheetToUser(
   dateString: string,
 ) {
   try {
-    const client = new MongoClient(uri);
     await client.connect();
     const database = client.db("users");
 
@@ -143,7 +127,6 @@ export async function addEventToTimesheet(
   timesheetEvent: TimesheetEvent,
 ) {
   try {
-    const client = new MongoClient(uri);
     await client.connect();
     const database = client.db("timesheets");
 
@@ -156,8 +139,6 @@ export async function addEventToTimesheet(
       },
     };
     const res = await timesheets.updateOne(filter, updateDocument);
-    console.log(res);
-    console.log(149);
     return res;
   } catch (e) {
     console.log(e);

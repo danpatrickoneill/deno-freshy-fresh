@@ -27,14 +27,11 @@ export default async function TimesheetPage(req: any, ctx: any) {
   const timesheetId = ctx.params.id;
   const noTimesheet = timesheetId === "new";
   const dateString = ctx.params.dateString;
-  console.log(25, timesheetId, dateString, ctx.params, noTimesheet);
   let timesheet;
   if (noTimesheet) {
     console.log("Empty sheet here!");
   } else {
-    console.log(47);
     timesheet = await fetchTimesheet(timesheetId);
-    console.log(timesheet);
   }
   const formAction = noTimesheet
     ? `/api/timesheets/new/${dateString}`
