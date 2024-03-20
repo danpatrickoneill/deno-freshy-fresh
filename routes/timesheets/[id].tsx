@@ -23,18 +23,6 @@ export const config: RouteConfig = {
   routeOverride: "/timesheets/:id/:dateString",
 };
 
-const postEventToTimesheet = async (timesheetId: string, event) => {
-  try {
-    const url = `${BASE_URL}/api/timesheets/${timesheetId}`;
-    const res = await fetch(url, { method: "POST", body: event });
-    console.log(res);
-    if (!res.ok) throw new Error(`Request failed: GET   ${url}`);
-    return res.json();
-  } catch (e) {
-    console.log(e);
-  }
-};
-
 export default async function TimesheetPage(req: any, ctx: any) {
   const timesheetId = ctx.params.id;
   const noTimesheet = timesheetId === "new";

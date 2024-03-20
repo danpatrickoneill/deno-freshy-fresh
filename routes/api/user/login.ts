@@ -1,11 +1,11 @@
 import { HandlerContext, Handlers } from "$fresh/server.ts";
 import { google } from "npm:googleapis";
+const status = await Deno.permissions.request({ name: "env" });
 
 //  User has a timesheet dict with dateString format keys and timesheet IDs; then handle lookup
 //  Can cache ID permanently and events refreshed on demand
 export const handler: Handlers = {
   async GET(req: Request, ctx: HandlerContext) {
-    const status = await Deno.permissions.request({ name: "env" });
     if (status.state === "granted") {
       console.log("'env' permission is granted.");
     } else {

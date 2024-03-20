@@ -23,4 +23,16 @@ export const handler: Handlers = {
       `${BASE_URL}/timesheets/${timesheetId.toString()}/${dateString}`;
     return Response.redirect(url);
   },
+  async POST(req: Request, ctx: HandlerContext) {
+    const { dateString } = ctx.params;
+    const timesheetId = await findTimesheetForUser(dateString);
+    console.log(29, timesheetId, ctx.params)
+    if (!timesheetId) {
+      const url = `${BASE_URL}/timesheets/new/${dateString}`;
+      return Response.redirect(url);
+    }
+    const url =
+      `${BASE_URL}/timesheets/${timesheetId.toString()}/${dateString}`;
+    return Response.redirect(url);
+  },
 };
