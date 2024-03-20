@@ -57,7 +57,7 @@ export async function findTimesheetForUser(dateString: string) {
   if (dateString) {
     try {
       if (!userEmail.value) {
-        throw new Error("User is not logged in. Don't do this.");
+        throw new Error("User is not logged in.");
       }
 
       await client.connect();
